@@ -128,7 +128,7 @@
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2022-03-09 21:28:43</span></span>
+        <span class="attr">发布于：<span>2022-03-10 15:33:59</span></span>
         
         <span class="attr">标签：/
         
@@ -239,7 +239,7 @@
 <li><p><strong>乐观锁</strong>：乐观锁相对悲观锁而言，先假想数据不会被并发操作修改，没有数据冲突，只在数据进行提交更新的时候，才会正式对数据的冲突与否进行检测，如果发现冲突了，则宣告失败，否则更新数据。这就要求避免使用长事务和锁机制，以免导致系统并发处理能力降低，保障系统生产效率。下面将说明使用乐观锁时的大致业务处理流程</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">首 步：执行一次查询 select some_column as old_value from some_table where id = id_value (假设该值在当前业务处理过程中不会被其他并发事务修改)</span><br><span class="line">...</span><br><span class="line">第n步：old_value参与中间业务处理，比如old_value被自己修改 new_value = f(old_value)。这期间可能耗时很长，但不会为持有 some_column 而申请所在的行或表锁定，因此其他并发事务可以获得该锁</span><br><span class="line">...</span><br><span class="line">尾 步：执行条件更新 update some_table set some_column = new_value where id = id_value and some_column = old_value (条件更新中检查old_value是否被修改)</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="三大日志"><a href="#三大日志" class="headerlink" title="三大日志"></a>三大日志</h2><p>MySQL InnoDB 引擎使用 redo log(重做日志) 保证事务的持久性，使用 undo log(回滚日志) 来保证事务的原子性。<br>MySQL数据库的数据备份、主备、主主、主从都离不开binlog，需要依靠binlog来同步数据，保证数据一致性。</p>
+<h2 id="三大日志"><a href="#三大日志" class="headerlink" title="三大日志"></a>三大日志</h2><p>MySQL InnoDB 引擎使用 redo log(重做日志) 保证事务的持久性，使用 undo log(回滚日志) 来保证事务的原子性。MySQL数据库的数据备份、主备、主主、主从都离不开binlog，需要依靠binlog来同步数据，保证数据一致性。</p>
 
         
         <br />
