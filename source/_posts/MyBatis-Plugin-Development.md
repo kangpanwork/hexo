@@ -62,7 +62,7 @@ public interface Interceptor {
 
 #### type－拦截的对象
 
-- Executor 执行的SQL 全过程，包括组装参数、组装结果返回和执行`SQL`的过程等都可以拦截。
+- Executor 执行的SQL 全过程，包括组装参数、组装结果返回和执行SQL的过程等都可以拦截。
 - StatementHandler 执行SQL的过程，拦截该对象可以重写执行SQL的过程。
 - ParameterHandler 执行SQL 的参数组装，拦截该对象可以重写组装参数的规则。
 - ResultSetHandler 执行结果的组装，拦截该对象可以重写组装结果的规则。
@@ -589,7 +589,7 @@ Role{id=4, roleName='user2', note='用户2'}
 Role{id=8, roleName='user3', note='用户3'}
 ```
 
-打印的`SQL`信息
+打印的SQL信息
 
 ```
 ==>  Preparing: select count(*) as total from (SELECT id, role_name, note FROM role) $_paging 
