@@ -1,5 +1,5 @@
 ---
-title: Mysql-Transaction-Isolation-Level
+title: MySql-Transaction-Isolation-Level
 date: 2022-03-09 21:28:43
 tags: MySql
 ---

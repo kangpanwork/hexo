@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        MyBatis-Plugin-Development - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> sometimes code， sometimes design </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Pan Kang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-text">MyBatis插件开发流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Interceptor%E6%8E%A5%E5%8F%A3"><span class="toc-text">Interceptor接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%8B%A6%E6%88%AA%E7%9A%84%E6%96%B9%E6%B3%95%E7%AD%BE%E5%90%8D"><span class="toc-text">确定拦截的方法签名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#type%EF%BC%8D%E6%8B%A6%E6%88%AA%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="toc-text">type－拦截的对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#method%EF%BC%8D%E6%8B%A6%E6%88%AA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">method－拦截的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#args%EF%BC%8D%E6%8B%A6%E6%88%AA%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-text">args－拦截的参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%8B%A6%E6%88%AA%E6%96%B9%E6%B3%95"><span class="toc-text">实现拦截方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"><span class="toc-text">配置分页插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0DAO"><span class="toc-text">实现DAO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"><span class="toc-text">测试分页插件</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> sometimes code， sometimes design </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        MyBatis-Plugin-Development
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-03-10 14:59:54</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#MyBatis" title="MyBatis">MyBatis</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="MyBatis插件开发流程"><a href="#MyBatis插件开发流程" class="headerlink" title="MyBatis插件开发流程"></a>MyBatis插件开发流程</h2><ul>
+<li><p>类实现Interceptor接口；</p>
+</li>
+<li><p>类上添加注解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Intercepts(&#123;@Signature(type, method, args)&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>type</strong>：需要拦截的对象，只可取四大对象之一Executor.class、StatementHandler.class、ParameterHandler.class、ResultSetHandler.class。</li>
+<li><strong>method</strong>：拦截的对象方法。</li>
+<li><strong>args</strong>：拦截的对象方法参数。</li>
+</ul>
+</li>
+<li><p>实现拦截的方法Object intercept(Invocation invocation)。</p>
+</li>
+</ul>
+<h2 id="Interceptor接口"><a href="#Interceptor接口" class="headerlink" title="Interceptor接口"></a>Interceptor接口</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public interface Interceptor &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 此方法将直接覆盖被拦截对象的原有方法</span><br><span class="line">     *</span><br><span class="line">     * @param invocation 通过该对象可以反射调度拦截对象的方法</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Throwable</span><br><span class="line">     */</span><br><span class="line">    Object intercept(Invocation invocation) throws Throwable;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 为被拦截对象生成一个代理对象，并返回它</span><br><span class="line">     *</span><br><span class="line">     * @param target 被拦截的对象</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    Object plugin(Object target);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 设置插件配置的参数</span><br><span class="line">     *</span><br><span class="line">     * @param properties 插件配置的参数</span><br><span class="line">     */</span><br><span class="line">    void setProperties(Properties properties);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="确定拦截的方法签名"><a href="#确定拦截的方法签名" class="headerlink" title="确定拦截的方法签名"></a>确定拦截的方法签名</h3><p>需要在实现Interceptor接口的类上加入@Intercepts({@Signature(type, method, args)})注解才能够运行插件。</p>
+<h4 id="type－拦截的对象"><a href="#type－拦截的对象" class="headerlink" title="type－拦截的对象"></a>type－拦截的对象</h4><ul>
+<li>Executor 执行的SQL 全过程，包括组装参数、组装结果返回和执行<code>SQL</code>的过程等都可以拦截。</li>
+<li>StatementHandler 执行SQL的过程，拦截该对象可以重写执行SQL的过程。</li>
+<li>ParameterHandler 执行SQL 的参数组装，拦截该对象可以重写组装参数的规则。</li>
+<li>ResultSetHandler 执行结果的组装，拦截该对象可以重写组装结果的规则。</li>
+</ul>
+<p>对于分页插件，我们只需要拦截StatementHandler对象，重写SELECT类型的SQL语句，实现分页功能。</p>
+<h4 id="method－拦截的方法"><a href="#method－拦截的方法" class="headerlink" title="method－拦截的方法"></a>method－拦截的方法</h4><p>我们已经能够确定拦截的对象是StatementHandler了，现在我们要确定拦截的是哪个方法，因为StatementHandler是通过prepare方法对SQL进行预编译的，所以我们需要对prepare方法进行拦截，在这个方法执行之前，完成SQL的重新编写，加入limit。</p>
+<p><strong>StatementHandler</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public interface StatementHandler &#123;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 预编译SQL</span><br><span class="line">   *</span><br><span class="line">   * @param connection</span><br><span class="line">   * @return</span><br><span class="line">   * @throws SQLException</span><br><span class="line">   */</span><br><span class="line">  Statement prepare(Connection connection)</span><br><span class="line">      throws SQLException;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 设置参数</span><br><span class="line">   *</span><br><span class="line">   * @param statement</span><br><span class="line">   * @throws SQLException</span><br><span class="line">   */</span><br><span class="line">  void parameterize(Statement statement)</span><br><span class="line">      throws SQLException;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 批处理</span><br><span class="line">   *</span><br><span class="line">   * @param statement</span><br><span class="line">   * @throws SQLException</span><br><span class="line">   */</span><br><span class="line">  void batch(Statement statement)</span><br><span class="line">      throws SQLException;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 执行更新操作</span><br><span class="line">   *</span><br><span class="line">   * @param statement</span><br><span class="line">   * @return 返回影响行数</span><br><span class="line">   * @throws SQLException</span><br><span class="line">   */</span><br><span class="line">  int update(Statement statement)</span><br><span class="line">      throws SQLException;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 执行查询操作，将结果交给ResultHandler进行结果的组装</span><br><span class="line">   *</span><br><span class="line">   * @param statement</span><br><span class="line">   * @param resultHandler</span><br><span class="line">   * @param &lt;E&gt;</span><br><span class="line">   * @return 返回查询的数据列表</span><br><span class="line">   * @throws SQLException</span><br><span class="line">   */</span><br><span class="line">  &lt;E&gt; List&lt;E&gt; query(Statement statement, ResultHandler resultHandler)</span><br><span class="line">      throws SQLException;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 得到绑定的sql</span><br><span class="line">   * </span><br><span class="line">   * @return</span><br><span class="line">   */</span><br><span class="line">  BoundSql getBoundSql();</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 得到参数处理器</span><br><span class="line">   * </span><br><span class="line">   * @return</span><br><span class="line">   */</span><br><span class="line">  ParameterHandler getParameterHandler();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="args－拦截的参数"><a href="#args－拦截的参数" class="headerlink" title="args－拦截的参数"></a>args－拦截的参数</h4><p>args是一个Class类型的数组，表示的是被拦截方法的参数列表。由于我们已经确定了拦截的是StatementHandler的prepare方法，而该方法只有一个参数Connection，所以我们只需要拦截这一个参数即可。</p>
+<h3 id="实现拦截方法"><a href="#实现拦截方法" class="headerlink" title="实现拦截方法"></a>实现拦截方法</h3><p>定义一个封装分页参数的类Page</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class Page &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 当前页码</span><br><span class="line">     */</span><br><span class="line">    private Integer pageIndex;</span><br><span class="line">    /**</span><br><span class="line">     * 每页数据条数</span><br><span class="line">     */</span><br><span class="line">    private Integer pageSize;</span><br><span class="line">    /**</span><br><span class="line">     * 总数据数</span><br><span class="line">     */</span><br><span class="line">    private Integer total;</span><br><span class="line">    /**</span><br><span class="line">     * 总页数</span><br><span class="line">     */</span><br><span class="line">    private Integer totalPage;</span><br><span class="line"></span><br><span class="line">    public Page() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Page(Integer pageIndex, Integer pageSize) &#123;</span><br><span class="line">        this.pageIndex = pageIndex;</span><br><span class="line">        this.pageSize = pageSize;</span><br><span class="line">    &#125;</span><br><span class="line">	// 省略get、set方法...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现插件分页的功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.ibatis.executor.parameter.ParameterHandler;</span><br><span class="line">import org.apache.ibatis.executor.statement.StatementHandler;</span><br><span class="line">import org.apache.ibatis.mapping.BoundSql;</span><br><span class="line">import org.apache.ibatis.mapping.MappedStatement;</span><br><span class="line">import org.apache.ibatis.plugin.*;</span><br><span class="line">import org.apache.ibatis.reflection.MetaObject;</span><br><span class="line">import org.apache.ibatis.reflection.SystemMetaObject;</span><br><span class="line">import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;</span><br><span class="line">import org.apache.ibatis.session.Configuration;</span><br><span class="line"></span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.PreparedStatement;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Properties;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">@Intercepts(&#123;@Signature(</span><br><span class="line">        type = StatementHandler.class,</span><br><span class="line">        method = &quot;prepare&quot;,</span><br><span class="line">        args = &#123;Connection.class&#125;</span><br><span class="line">)&#125;)</span><br><span class="line">public class PagingPlugin implements Interceptor &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 默认页码</span><br><span class="line">     */</span><br><span class="line">    private Integer defaultPageIndex;</span><br><span class="line">    /**</span><br><span class="line">     * 默认每页数据条数</span><br><span class="line">     */</span><br><span class="line">    private Integer defaultPageSize;</span><br><span class="line"></span><br><span class="line">    public Object intercept(Invocation invocation) throws Throwable &#123;</span><br><span class="line">        StatementHandler statementHandler = getUnProxyObject(invocation);</span><br><span class="line">        MetaObject metaObject = SystemMetaObject.forObject(statementHandler);</span><br><span class="line">        String sql = getSql(metaObject);</span><br><span class="line">        if (!checkSelect(sql)) &#123;</span><br><span class="line">            // 不是select语句，进入责任链下一层</span><br><span class="line">            return invocation.proceed();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        BoundSql boundSql = (BoundSql) metaObject.getValue(&quot;delegate.boundSql&quot;);</span><br><span class="line">        Object parameterObject = boundSql.getParameterObject();</span><br><span class="line">        Page page = getPage(parameterObject);</span><br><span class="line">        if (page == null) &#123;</span><br><span class="line">            // 没有传入page对象，不执行分页处理，进入责任链下一层</span><br><span class="line">            return invocation.proceed();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 设置分页默认值</span><br><span class="line">        if (page.getPageIndex() == null) &#123;</span><br><span class="line">            page.setPageIndex(this.defaultPageIndex);</span><br><span class="line">        &#125;</span><br><span class="line">        if (page.getPageSize() == null) &#123;</span><br><span class="line">            page.setPageSize(this.defaultPageSize);</span><br><span class="line">        &#125;</span><br><span class="line">        // 设置分页总数，数据总数</span><br><span class="line">        setTotalToPage(page, invocation, metaObject, boundSql);</span><br><span class="line">        // 校验分页参数</span><br><span class="line">        checkPage(page);</span><br><span class="line">        return changeSql(invocation, metaObject, boundSql, page);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Object plugin(Object target) &#123;</span><br><span class="line">        // 生成代理对象</span><br><span class="line">        return Plugin.wrap(target, this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setProperties(Properties properties) &#123;</span><br><span class="line">        // 初始化配置的默认页码，无配置则默认1</span><br><span class="line">        this.defaultPageIndex = Integer.parseInt(properties.getProperty(&quot;default.pageIndex&quot;, &quot;1&quot;));</span><br><span class="line">        // 初始化配置的默认数据条数，无配置则默认20</span><br><span class="line">        this.defaultPageSize = Integer.parseInt(properties.getProperty(&quot;default.pageSize&quot;, &quot;20&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 从代理对象中分离出真实对象</span><br><span class="line">     *</span><br><span class="line">     * @param invocation</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private StatementHandler getUnProxyObject(Invocation invocation) &#123;</span><br><span class="line">        // 取出被拦截的对象</span><br><span class="line">        StatementHandler statementHandler = (StatementHandler) invocation.getTarget();</span><br><span class="line">        MetaObject metaStmtHandler = SystemMetaObject.forObject(statementHandler);</span><br><span class="line">        Object object = null;</span><br><span class="line">        // 分离代理对象</span><br><span class="line">        while (metaStmtHandler.hasGetter(&quot;h&quot;)) &#123;</span><br><span class="line">            object = metaStmtHandler.getValue(&quot;h&quot;);</span><br><span class="line">            metaStmtHandler = SystemMetaObject.forObject(object);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return object == null ? statementHandler : (StatementHandler) object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 判断是否是select语句</span><br><span class="line">     *</span><br><span class="line">     * @param sql</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private boolean checkSelect(String sql) &#123;</span><br><span class="line">        // 去除sql的前后空格，并将sql转换成小写</span><br><span class="line">        sql = sql.trim().toLowerCase();</span><br><span class="line">        return sql.indexOf(&quot;select&quot;) == 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取分页参数</span><br><span class="line">     *</span><br><span class="line">     * @param parameterObject</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private Page getPage(Object parameterObject) &#123;</span><br><span class="line">        if (parameterObject == null) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (parameterObject instanceof Map) &#123;</span><br><span class="line">            // 如果传入的参数是map类型的，则遍历map取出Page对象</span><br><span class="line">            Map&lt;String, Object&gt; parameMap = (Map&lt;String, Object&gt;) parameterObject;</span><br><span class="line">            Set&lt;String&gt; keySet = parameMap.keySet();</span><br><span class="line">            for (String key : keySet) &#123;</span><br><span class="line">                Object value = parameMap.get(key);</span><br><span class="line">                if (value instanceof Page) &#123;</span><br><span class="line">                    // 返回Page对象</span><br><span class="line">                    return (Page) value;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else if (parameterObject instanceof Page) &#123;</span><br><span class="line">            // 如果传入的是Page类型，则直接返回该对象</span><br><span class="line">            return (Page) parameterObject;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 初步判断并没有传入Page类型的参数，返回null</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取数据总数</span><br><span class="line">     *</span><br><span class="line">     * @param invocation</span><br><span class="line">     * @param metaObject</span><br><span class="line">     * @param boundSql</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private int getTotal(Invocation invocation, MetaObject metaObject, BoundSql boundSql) &#123;</span><br><span class="line">        // 获取当前的mappedStatement对象</span><br><span class="line">        MappedStatement mappedStatement = (MappedStatement) metaObject.getValue(&quot;delegate.mappedStatement&quot;);</span><br><span class="line">        // 获取配置对象</span><br><span class="line">        Configuration configuration = mappedStatement.getConfiguration();</span><br><span class="line">        // 获取当前需要执行的sql</span><br><span class="line">        String sql = getSql(metaObject);</span><br><span class="line">        // 改写sql语句，实现返回数据总数 $_paging取名是为了防止数据库表重名</span><br><span class="line">        String countSql = &quot;select count(*) as total from (&quot; + sql + &quot;) $_paging&quot;;</span><br><span class="line">        // 获取拦截方法参数，拦截的是connection对象</span><br><span class="line">        Connection connection = (Connection) invocation.getArgs()[0];</span><br><span class="line">        PreparedStatement pstmt = null;</span><br><span class="line">        int total = 0;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            // 预编译查询数据总数的sql语句</span><br><span class="line">            pstmt = connection.prepareStatement(countSql);</span><br><span class="line">            // 构建boundSql对象</span><br><span class="line">            BoundSql countBoundSql = new BoundSql(configuration, countSql, boundSql.getParameterMappings(),</span><br><span class="line">                    boundSql.getParameterObject());</span><br><span class="line">            // 构建parameterHandler用于设置sql参数</span><br><span class="line">            ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, boundSql.getParameterObject(),</span><br><span class="line">                    countBoundSql);</span><br><span class="line">            // 设置sql参数</span><br><span class="line">            parameterHandler.setParameters(pstmt);</span><br><span class="line">            //执行查询</span><br><span class="line">            ResultSet rs = pstmt.executeQuery();</span><br><span class="line">            while (rs.next()) &#123;</span><br><span class="line">                total = rs.getInt(&quot;total&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            if (pstmt != null) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    pstmt.close();</span><br><span class="line">                &#125; catch (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 返回总数据数</span><br><span class="line">        return total;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 设置总数据数、总页数</span><br><span class="line">     *</span><br><span class="line">     * @param page</span><br><span class="line">     * @param invocation</span><br><span class="line">     * @param metaObject</span><br><span class="line">     * @param boundSql</span><br><span class="line">     */</span><br><span class="line">    private void setTotalToPage(Page page, Invocation invocation, MetaObject metaObject, BoundSql boundSql) &#123;</span><br><span class="line">        // 总数据数</span><br><span class="line">        int total = getTotal(invocation, metaObject, boundSql);</span><br><span class="line">        // 计算总页数</span><br><span class="line">        int totalPage = total / page.getPageSize();</span><br><span class="line">        if (total % page.getPageSize() != 0) &#123;</span><br><span class="line">            totalPage = totalPage + 1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        page.setTotal(total);</span><br><span class="line">        page.setTotalPage(totalPage);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 校验分页参数</span><br><span class="line">     *</span><br><span class="line">     * @param page</span><br><span class="line">     */</span><br><span class="line">    private void checkPage(Page page) &#123;</span><br><span class="line">        // 如果当前页码大于总页数，抛出异常</span><br><span class="line">        if (page.getPageIndex() &gt; page.getTotalPage()) &#123;</span><br><span class="line">            throw new RuntimeException(&quot;当前页码［&quot; + page.getPageIndex() + &quot;］大于总页数［&quot; + page.getTotalPage() + &quot;］&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        // 如果当前页码小于总页数，抛出异常</span><br><span class="line">        if (page.getPageIndex() &lt; 1) &#123;</span><br><span class="line">            throw new RuntimeException(&quot;当前页码［&quot; + page.getPageIndex() + &quot;］小于［1］&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 修改当前查询的sql</span><br><span class="line">     *</span><br><span class="line">     * @param invocation</span><br><span class="line">     * @param metaObject</span><br><span class="line">     * @param boundSql</span><br><span class="line">     * @param page</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private Object changeSql(Invocation invocation, MetaObject metaObject, BoundSql boundSql, Page page) throws Exception &#123;</span><br><span class="line">        // 获取当前查询的sql</span><br><span class="line">        String sql = getSql(metaObject);</span><br><span class="line">        // 修改sql，$_paging_table_limit取名是为了防止数据库表重名</span><br><span class="line">        String newSql = &quot;select * from (&quot; + sql + &quot;) $_paging_table_limit limit ?, ?&quot;;</span><br><span class="line">        // 设置当前sql为修改后的sql</span><br><span class="line">        setSql(metaObject, newSql);</span><br><span class="line"></span><br><span class="line">        // 获取PreparedStatement对象</span><br><span class="line">        PreparedStatement pstmt = (PreparedStatement) invocation.proceed();</span><br><span class="line">        // 获取sql的总参数个数</span><br><span class="line">        int parameCount = pstmt.getParameterMetaData().getParameterCount();</span><br><span class="line">        // 设置分页参数</span><br><span class="line">        pstmt.setInt(parameCount - 1, (page.getPageIndex() - 1) * page.getPageSize());</span><br><span class="line">        pstmt.setInt(parameCount, page.getPageSize());</span><br><span class="line"></span><br><span class="line">        return pstmt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取当前查询的sql</span><br><span class="line">     *</span><br><span class="line">     * @param metaObject</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String getSql(MetaObject metaObject) &#123;</span><br><span class="line">        return (String) metaObject.getValue(&quot;delegate.boundSql.sql&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 设置当前查询的sql</span><br><span class="line">     *</span><br><span class="line">     * @param metaObject</span><br><span class="line">     */</span><br><span class="line">    private void setSql(MetaObject metaObject, String sql) &#123;</span><br><span class="line">        metaObject.setValue(&quot;delegate.boundSql.sql&quot;, sql);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置分页插件"><a href="#配置分页插件" class="headerlink" title="配置分页插件"></a>配置分页插件</h3><p>在mybatis-config.xml配置文件中配置自定义的分页插件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">	&lt;plugin interceptor=&quot;PagingPlugin&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;default.pageIndex&quot; value=&quot;1&quot;/&gt;</span><br><span class="line">		&lt;property name=&quot;default.pageSize&quot; value=&quot;20&quot;/&gt;</span><br><span class="line">	&lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现DAO"><a href="#实现DAO" class="headerlink" title="实现DAO"></a>实现DAO</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Role &#123;</span><br><span class="line"></span><br><span class="line">   private Long id;</span><br><span class="line">   private String roleName;</span><br><span class="line">   private String note;</span><br><span class="line">   // 省略get、set...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义Mapper接口，通过分页对象查询角色列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface RoleMapper &#123;</span><br><span class="line">    List&lt;Role&gt; listRoleByPage(Page page);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义Mapper.xml编写查询的SQL语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace=&quot;RoleMapper&quot;&gt;</span><br><span class="line">    &lt;select id=&quot;listRoleByPage&quot; resultType=&quot;Role&quot;&gt;</span><br><span class="line">        SELECT id, role_name, note FROM role</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试分页插件"><a href="#测试分页插件" class="headerlink" title="测试分页插件"></a>测试分页插件</h3><p>测试代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test() &#123;</span><br><span class="line">	InputStream inputStream = null;</span><br><span class="line">	SqlSessionFactory sqlSessionFactory;</span><br><span class="line">	SqlSession sqlSession = null;</span><br><span class="line">	try &#123;</span><br><span class="line">		inputStream = Resources.getResourceAsStream(&quot;mybatis-config.xml&quot;);</span><br><span class="line">		sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">		sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);</span><br><span class="line">		// 分页参数，从第一页开始，每页显示5条数据</span><br><span class="line">		Page page = new Page(1, 5);</span><br><span class="line">		List&lt;Role&gt; roleList = roleMapper.listRoleByPage(page);</span><br><span class="line">		System.out.println(&quot;===分页信息===&quot;);</span><br><span class="line">		System.out.println(&quot;当前页码：&quot; + page.getPageIndex());</span><br><span class="line">		System.out.println(&quot;每页显示数据数：&quot; + page.getPageSize());</span><br><span class="line">		System.out.println(&quot;总数据数：&quot; + page.getTotal());</span><br><span class="line">		System.out.println(&quot;总页数：&quot; + page.getTotalPage());</span><br><span class="line">		System.out.println(&quot;=============&quot;);</span><br><span class="line">		System.out.println(&quot;===数据列表===&quot;);</span><br><span class="line">		for (Role role : roleList) &#123;</span><br><span class="line">			System.out.println(role);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; catch (IOException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125; finally &#123;</span><br><span class="line">		if (sqlSession != null) &#123;</span><br><span class="line">			sqlSession.close();</span><br><span class="line">		&#125;</span><br><span class="line">		if (inputStream != null) &#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				inputStream.close();</span><br><span class="line">			&#125; catch (IOException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据库role表中的全部数据信息</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>role_name</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>SUPER_ADMIN</td>
+<td>超级管理员</td>
+</tr>
+<tr>
+<td>2</td>
+<td>admin</td>
+<td>管理员</td>
+</tr>
+<tr>
+<td>3</td>
+<td>user</td>
+<td>用户</td>
+</tr>
+<tr>
+<td>4</td>
+<td>user2</td>
+<td>用户2</td>
+</tr>
+<tr>
+<td>8</td>
+<td>user3</td>
+<td>用户3</td>
+</tr>
+<tr>
+<td>9</td>
+<td>test</td>
+<td>测试</td>
+</tr>
+<tr>
+<td>10</td>
+<td>test2</td>
+<td>测试2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>test3</td>
+<td>测试3</td>
+</tr>
+<tr>
+<td>12</td>
+<td>test4</td>
+<td>测试4</td>
+</tr>
+<tr>
+<td>13</td>
+<td>test5</td>
+<td>测试5</td>
+</tr>
+</tbody></table>
+<p>代码执行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">===分页信息===</span><br><span class="line">当前页码：1</span><br><span class="line">每页显示数据数：5</span><br><span class="line">总数据数：10</span><br><span class="line">总页数：2</span><br><span class="line">=============</span><br><span class="line">===数据列表===</span><br><span class="line">Role&#123;id=1, roleName=&#x27;SUPER_ADMIN&#x27;, note=&#x27; 超级管理员&#x27;&#125;</span><br><span class="line">Role&#123;id=2, roleName=&#x27;admin&#x27;, note=&#x27;管理员&#x27;&#125;</span><br><span class="line">Role&#123;id=3, roleName=&#x27;user&#x27;, note=&#x27;用户&#x27;&#125;</span><br><span class="line">Role&#123;id=4, roleName=&#x27;user2&#x27;, note=&#x27;用户2&#x27;&#125;</span><br><span class="line">Role&#123;id=8, roleName=&#x27;user3&#x27;, note=&#x27;用户3&#x27;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>打印的<code>SQL</code>信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: select count(*) as total from (SELECT id, role_name, note FROM role) $_paging </span><br><span class="line">==&gt; Parameters: </span><br><span class="line">&lt;==    Columns: total</span><br><span class="line">&lt;==        Row: 10</span><br><span class="line">&lt;==      Total: 1</span><br><span class="line">==&gt;  Preparing: select * from (SELECT id, role_name, note FROM role) $_paging_table_limit limit ?, ? </span><br><span class="line">==&gt; Parameters: 0(Integer), 5(Integer)</span><br><span class="line">&lt;==    Columns: id, role_name, note</span><br><span class="line">&lt;==        Row: 1, SUPER_ADMIN,  超级管理员</span><br><span class="line">&lt;==        Row: 2, admin, 管理员</span><br><span class="line">&lt;==        Row: 3, user, 用户</span><br><span class="line">&lt;==        Row: 4, user2, 用户2</span><br><span class="line">&lt;==        Row: 8, user3, 用户3</span><br><span class="line">&lt;==      Total: 5</span><br></pre></td></tr></table></figure>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

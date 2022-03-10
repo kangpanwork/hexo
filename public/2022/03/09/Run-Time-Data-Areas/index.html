@@ -93,7 +93,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-pc-Register-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-text">The pc Register - 程序计数器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-Virtual-Machine-Stacks-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="toc-text">Java Virtual Machine Stacks - Java 虚拟机栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Native-Method-Stacks-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="toc-text">Native Method Stacks - 本地方法栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Heap-%E5%A0%86"><span class="toc-text">Heap - 堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Method-Area-%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="toc-text">Method Area - 方法区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Run-Time-Constant-Pool-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-text">Run-Time Constant Pool - 运行时常量池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98"><span class="toc-text">直接内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-pc-Register-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-text">The pc Register - 程序计数器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-Virtual-Machine-Stacks-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="toc-text">Java Virtual Machine Stacks - Java 虚拟机栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Native-Method-Stacks-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="toc-text">Native Method Stacks - 本地方法栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Heap-%E5%A0%86"><span class="toc-text">Heap - 堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Method-Area-%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="toc-text">Method Area - 方法区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Run-Time-Constant-Pool-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-text">Run-Time Constant Pool - 运行时常量池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98"><span class="toc-text">直接内存</span></a></li></ol>
 </div>
     
 </div>
@@ -144,7 +144,7 @@
     <div class="post-content ">
         <h2 id="The-pc-Register-程序计数器"><a href="#The-pc-Register-程序计数器" class="headerlink" title="The pc Register - 程序计数器"></a>The pc Register - 程序计数器</h2><p>线程私有内存，保存<strong>当前线程所执行的字节码的行号指示器</strong>，这里和计算机组成原理中的计数器不太一样，计组中的 PC 指的是<strong>下一条要执行的指令</strong>的地址。JVM 中常有多个线程执行，故每条线程都需要有一个独立的程序计数器。</p>
 <p>如果线程执行的是 Java 方法，哪儿计数器记录的就是正在执行的虚拟机字节码指令的地址；如果执行的是 Native 方法，这个计数器则为空。</p>
-<p>P.S. 这块内存无<code>OutOfMemoryError</code></p>
+<p>P.S. 这块内存无OutOfMemoryError</p>
 <h2 id="Java-Virtual-Machine-Stacks-Java-虚拟机栈"><a href="#Java-Virtual-Machine-Stacks-Java-虚拟机栈" class="headerlink" title="Java Virtual Machine Stacks - Java 虚拟机栈"></a>Java Virtual Machine Stacks - Java 虚拟机栈</h2><p>线程私有，虚拟机栈描述的是 Java 方法执行的内存模型，每个方法在执行时会创建一个栈帧，栈帧中保存有局部变量表、操作数栈、动态链接和方法出口等。粗略来讲 Java 内存区分为堆和栈，实际上『栈』指的往往是虚拟机栈中的局部变量表部分。</p>
 <p>局部变量表中存放了编译期可知的各种基本数据类型、对象引用类型和 returnAddress 类型。方法运行期间局部变量表大小不变。</p>
 <h2 id="Native-Method-Stacks-本地方法栈"><a href="#Native-Method-Stacks-本地方法栈" class="headerlink" title="Native Method Stacks - 本地方法栈"></a>Native Method Stacks - 本地方法栈</h2><p>和虚拟机栈类似，不过区别在于虚拟机栈为 Java 方法（字节码）服务，而本地方法栈为 Native 方法服务（类似 C 语言中的栈）。具体实现可将这两者合二为一。</p>
@@ -152,11 +152,6 @@
 <h2 id="Method-Area-方法区"><a href="#Method-Area-方法区" class="headerlink" title="Method Area - 方法区"></a>Method Area - 方法区</h2><p>各线程共享的一块内存区域，和操作系统中进程中的『文本段』有些类似，用于存储虚拟机加载的类信息、常量、静态常量和即时编译器编译后的代码数据等。</p>
 <h2 id="Run-Time-Constant-Pool-运行时常量池"><a href="#Run-Time-Constant-Pool-运行时常量池" class="headerlink" title="Run-Time Constant Pool - 运行时常量池"></a>Run-Time Constant Pool - 运行时常量池</h2><p>这一部分是方法区的一部分，用于保存 Class 文件中编译期生成的字面值和符号引用。</p>
 <h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>这一部分并不是虚拟机运行时的数据区域，用于 Native 函数分配堆外内存，提高性能用（不必在操作系统堆和 Java 堆复制数据）。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li>《深入理解 Java 虚拟机》</li>
-<li><a target="_blank" rel="noopener" href="http://segmentfault.com/a/1190000002931555">Java 内存区域详解 - SegmentFault</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html">Chapter 2. The Structure of the Java Virtual Machine</a></li>
-</ul>
 
         
         <br />

@@ -12,7 +12,7 @@ tags: Java
 
 如果线程执行的是 Java 方法，哪儿计数器记录的就是正在执行的虚拟机字节码指令的地址；如果执行的是 Native 方法，这个计数器则为空。
 
-P.S. 这块内存无`OutOfMemoryError`
+P.S. 这块内存无OutOfMemoryError
 
 ## Java Virtual Machine Stacks - Java 虚拟机栈
 
@@ -39,9 +39,3 @@ P.S. 这块内存无`OutOfMemoryError`
 ## 直接内存
 
 这一部分并不是虚拟机运行时的数据区域，用于 Native 函数分配堆外内存，提高性能用（不必在操作系统堆和 Java 堆复制数据）。
-
-## Reference
-
-- 《深入理解 Java 虚拟机》
-- [Java 内存区域详解 - SegmentFault](http://segmentfault.com/a/1190000002931555)
-- [Chapter 2. The Structure of the Java Virtual Machine](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html)
