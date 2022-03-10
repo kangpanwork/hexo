@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Mysql-Transaction-Isolation-Level - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> sometimes code， sometimes design </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Pan Kang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%844%E5%A4%A7%E7%89%B9%E6%80%A7ACID"><span class="toc-text">事务的4大特性ACID</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">MySQL 事务的隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="toc-text">准备环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E6%95%B0%E6%8D%AE"><span class="toc-text">准备数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-text">事务并发可能出现的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%8F%E8%AF%BB%EF%BC%88Dirty-Read%EF%BC%89"><span class="toc-text">脏读（Dirty Read）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BB%E8%AF%BB%EF%BC%88Phantom%EF%BC%89"><span class="toc-text">幻读（Phantom）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%EF%BC%88Non-Repeatable-Read%EF%BC%89"><span class="toc-text">不可重复读（Non-Repeatable Read）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BB%E8%AF%BB%EF%BC%88Phantom%EF%BC%89-1"><span class="toc-text">幻读（Phantom）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">事务的隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4%EF%BC%88READ-UNCOMMITTED%EF%BC%89"><span class="toc-text">读未提交（READ UNCOMMITTED）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%B7%B2%E6%8F%90%E4%BA%A4%EF%BC%88READ-COMMITTED%EF%BC%89"><span class="toc-text">读已提交（READ COMMITTED）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%EF%BC%88REPEATABLE-READ%EF%BC%89"><span class="toc-text">可重复读（REPEATABLE READ）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E4%B8%B2%E8%A1%8C%E5%8C%96%EF%BC%88SERIALIZABLE%EF%BC%89"><span class="toc-text">可串行化（SERIALIZABLE）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">隔离级别的实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E4%BC%9A%E8%AF%9D%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">查看当前会话隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F1"><span class="toc-text">方式1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F2"><span class="toc-text">方式2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">设置隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F1%EF%BC%9A%E9%80%9A%E8%BF%87set%E5%91%BD%E4%BB%A4"><span class="toc-text">方式1：通过set命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D%EF%BC%9AGLOBAL"><span class="toc-text">关键词：GLOBAL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D%EF%BC%9ASESSION"><span class="toc-text">关键词：SESSION</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%A0%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="toc-text">无关键词</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F2%EF%BC%9A%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8%E9%A1%B9%E5%91%BD%E4%BB%A4"><span class="toc-text">方式2：通过服务启动项命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%8B%E5%8A%A1%E6%97%A5%E5%BF%97"><span class="toc-text">关于事务日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B7%E7%9B%98%E6%97%B6%E6%9C%BA"><span class="toc-text">刷盘时机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">日志存储方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EAutocommit"><span class="toc-text">关于Autocommit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%82%B2%E8%A7%82%E9%94%81%E4%B8%8E%E4%B9%90%E8%A7%82%E9%94%81"><span class="toc-text">悲观锁与乐观锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E5%A4%A7%E6%97%A5%E5%BF%97"><span class="toc-text">三大日志</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> sometimes code， sometimes design </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Mysql-Transaction-Isolation-Level
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-03-09 21:28:43</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#MySql" title="MySql">MySql</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h1 id="事务的4大特性ACID"><a href="#事务的4大特性ACID" class="headerlink" title="事务的4大特性ACID"></a>事务的4大特性ACID</h1><p>原子性（Atomicity）：一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。<br>一致性（Consistent）：一方面，在事务开始之前和事务结束以后，数据库的完整性没有被破坏；另一方面，写入的数据必须完全符合所有的预设规则。<br>隔离性（Isolation）：不同的会话或线程，操作数据库的时候可能产生多个事务。如果同时操作一张表或同一行数据，必然产生并发或干扰操作。隔离性要求事务间对表或数据操作是透明的，互相不存在干扰的，通过这种方式保证一致性。<br>持久性（Durable）：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</p>
+<h1 id="MySQL-事务的隔离级别"><a href="#MySQL-事务的隔离级别" class="headerlink" title="MySQL 事务的隔离级别"></a>MySQL 事务的隔离级别</h1><h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql</span><br><span class="line">docker run --name=mysql -it -p3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql</span><br><span class="line">docker ps -a</span><br><span class="line">docker exec -it 15084 bash</span><br><span class="line">mysql -u root -p</span><br><span class="line">mysql&gt; create database kangpan</span><br><span class="line">mysql&gt; use kangpan</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table user(</span><br><span class="line">    -&gt; id int(10) auto_increment,</span><br><span class="line">    -&gt; name varchar(30) default null,</span><br><span class="line">    -&gt; age tinyint(4) default null,</span><br><span class="line">    -&gt; primary key (id)</span><br><span class="line">    -&gt; )engine=innodb charset=utf8mb4;</span><br><span class="line"></span><br><span class="line"> insert into user(id, name, age) values (1,&#x27;kangpan&#x27;,31);</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user;</span><br><span class="line">+----+---------+------+</span><br><span class="line">| id | name    | age  |</span><br><span class="line">+----+---------+------+</span><br><span class="line">|  1 | kangpan |   31 |</span><br><span class="line">+----+---------+------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="事务并发可能出现的情况"><a href="#事务并发可能出现的情况" class="headerlink" title="事务并发可能出现的情况"></a>事务并发可能出现的情况</h2><h4 id="脏读（Dirty-Read）"><a href="#脏读（Dirty-Read）" class="headerlink" title="脏读（Dirty Read）"></a>脏读（Dirty Read）</h4><p>一个事务读到了另一个未提交事务修改过的数据</p>
+<h4 id="幻读（Phantom）"><a href="#幻读（Phantom）" class="headerlink" title="幻读（Phantom）"></a>幻读（Phantom）</h4><p>一个事务先根据某些条件查询出一些记录，之后另一个事务又向表中插入了符合这些条件的记录，原先的事务再次按照该条件查询时，能把另一个事务插入的记录也读出来。（幻读在读未提交、读已提交、可重复读隔离级别都可能会出现）</p>
+<h4 id="不可重复读（Non-Repeatable-Read）"><a href="#不可重复读（Non-Repeatable-Read）" class="headerlink" title="不可重复读（Non-Repeatable Read）"></a>不可重复读（Non-Repeatable Read）</h4><p>一个事务只能读到另一个已经提交的事务修改过的数据，并且其他事务每对该数据进行一次修改并提交后，该事务都能查询得到最新值。（不可重复读在读未提交和读已提交隔离级别都可能会出现）</p>
+<h4 id="幻读（Phantom）-1"><a href="#幻读（Phantom）-1" class="headerlink" title="幻读（Phantom）"></a>幻读（Phantom）</h4><p>一个事务先根据某些条件查询出一些记录，之后另一个事务又向表中插入了符合这些条件的记录，原先的事务再次按照该条件查询时，能把另一个事务插入的记录也读出来。（幻读在读未提交、读已提交、可重复读隔离级别都可能会出现）</p>
+<h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2><p>MySQL的事务隔离级别一共有四个，分别是读未提交、读已提交、可重复读以及可串行化。</p>
+<p>MySQL的隔离级别的作用就是让事务之间互相隔离，互不影响，这样可以保证事务的一致性。</p>
+<p>隔离级别比较：可串行化&gt;可重复读&gt;读已提交&gt;读未提交</p>
+<p>隔离级别对性能的影响比较：可串行化&gt;可重复读&gt;读已提交&gt;读未提交</p>
+<p>由此看出，隔离级别越高，所需要消耗的MySQL性能越大（如事务并发严重性），为了平衡二者，一般建议设置的隔离级别为可重复读，MySQL默认的隔离级别也是可重复读。</p>
+<h4 id="读未提交（READ-UNCOMMITTED）"><a href="#读未提交（READ-UNCOMMITTED）" class="headerlink" title="读未提交（READ UNCOMMITTED）"></a>读未提交（READ UNCOMMITTED）</h4><p>在读未提交隔离级别下，事务A可以读取到事务B修改过但未提交的数据。</p>
+<p>可能发生脏读、不可重复读和幻读问题，一般很少使用此隔离级别。</p>
+<h4 id="读已提交（READ-COMMITTED）"><a href="#读已提交（READ-COMMITTED）" class="headerlink" title="读已提交（READ COMMITTED）"></a>读已提交（READ COMMITTED）</h4><p>在读已提交隔离级别下，事务B只能在事务A修改过并且已提交后才能读取到事务B修改的数据。</p>
+<p>读已提交隔离级别解决了脏读的问题，但可能发生不可重复读和幻读问题，一般很少使用此隔离级别。</p>
+<h4 id="可重复读（REPEATABLE-READ）"><a href="#可重复读（REPEATABLE-READ）" class="headerlink" title="可重复读（REPEATABLE READ）"></a>可重复读（REPEATABLE READ）</h4><p>在可重复读隔离级别下，事务B只能在事务A修改过数据并提交后，自己也提交事务后，才能读取到事务B修改的数据。可重复读隔离级别解决了脏读和不可重复读的问题，但可能发生幻读问题。</p>
+<p>提问：为什么上了写锁（写操作），别的事务还可以读操作？</p>
+<p>因为InnoDB有MVCC机制（多版本并发控制），可以使用快照读，而不会被阻塞。</p>
+<h4 id="可串行化（SERIALIZABLE）"><a href="#可串行化（SERIALIZABLE）" class="headerlink" title="可串行化（SERIALIZABLE）"></a>可串行化（SERIALIZABLE）</h4><p>各种问题（脏读、不可重复读、幻读）都不会发生，通过加锁实现（读锁和写锁）。</p>
+<h2 id="隔离级别的实现原理"><a href="#隔离级别的实现原理" class="headerlink" title="隔离级别的实现原理"></a>隔离级别的实现原理</h2><p>使用MySQL的默认隔离级别（可重复读）来进行说明。</p>
+<p>每条记录在更新的时候都会同时记录一条回滚操作（回滚操作日志undo log）。同一条记录在系统中可以存在多个版本，这就是数据库的多版本并发控制（MVCC）。即通过回滚（rollback操作），可以回到前一个状态的值。</p>
+<p>假设一个值从 1 被按顺序改成了 2、3、4，在回滚日志里面就会有类似下面的记录。</p>
+<ul>
+<li><p>read-view A : 回滚段 将 2 改成 1</p>
+</li>
+<li><p>read-view B : 回滚段 将 3 改成 2</p>
+</li>
+<li><p>read-view C : 当前值 4 </p>
+</li>
+</ul>
+<p>read-view A -&gt; read-view B -&gt; read-view C</p>
+<p>当前值是 4，但是在查询这条记录的时候，不同时刻启动的事务会有不同的 read-view。在视图 A、B、C 里面，这一个记录的值分别是 1、2、4，同一条记录在系统中可以存在多个版本，就是数据库的多版本并发控制（MVCC）。对于 read-view A，要得到 1，就必须将当前值依次执行图中所有的回滚操作得到。</p>
+<p>同时你会发现，即使现在有另外一个事务正在将 4 改成 5，这个事务跟 read-view A、B、C 对应的事务是不会冲突的。</p>
+<p>提问：回滚操作日志（undo log）什么时候删除？</p>
+<p>MySQL会判断当没有事务需要用到这些回滚日志的时候，回滚日志会被删除。</p>
+<p>提问：什么时候不需要了？</p>
+<p>当系统里么有比这个回滚日志更早的read-view的时候。</p>
+<p>我们知道如果想要保证事务的原子性，就需要在异常发生时，对已经执行的操作进行<strong>回滚</strong>，在 MySQL 中，恢复机制是通过 <strong>回滚日志（undo log）</strong> 实现的，所有事务进行的修改都会先记录到这个回滚日志中，然后再执行相关的操作。如果执行过程中遇到异常的话，我们直接利用 <strong>回滚日志</strong> 中的信息将数据回滚到修改之前的样子即可！并且，回滚日志会先于数据持久化到磁盘上。这样就保证了即使遇到数据库突然宕机等情况，当用户再次启动数据库的时候，数据库还能够通过查询回滚日志来回滚将之前未完成的事务。</p>
+<p>另外，MVCC 的实现依赖于：<strong>隐藏字段、Read View、undo log</strong>。在内部实现中，InnoDB 通过数据行的 DB_TRX_ID 和 Read View 来判断数据的可见性，如不可见，则通过数据行的 DB_ROLL_PTR 找到 undo log 中的历史版本。每个事务读到的数据版本可能是不一样的，在同一个事务中，用户只能看到该事务创建 Read View 之前已经提交的修改和该事务本身做的修改</p>
+<h2 id="查看当前会话隔离级别"><a href="#查看当前会话隔离级别" class="headerlink" title="查看当前会话隔离级别"></a>查看当前会话隔离级别</h2><h4 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">命令：SHOW VARIABLES LIKE &#x27;transaction_isolation&#x27;;</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;transaction_isolation&#x27;;</span><br><span class="line">+-----------------------+--------------+</span><br><span class="line">| Variable_name  | Value |</span><br><span class="line">+-----------------------+--------------+</span><br><span class="line">| transaction_isolation | SERIALIZABLE |</span><br><span class="line">+-----------------------+--------------+</span><br></pre></td></tr></table></figure>
+
+<h4 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">命令：SELECT @@transaction_isolation;</span><br><span class="line"></span><br><span class="line">mysql&gt; select @@transaction_isolation;</span><br><span class="line">+-------------------------+</span><br><span class="line">| @@transaction_isolation |</span><br><span class="line">+-------------------------+</span><br><span class="line">| SERIALIZABLE            |</span><br><span class="line">+-------------------------+</span><br><span class="line"></span><br><span class="line">mysql&gt; select @@global.transaction_isolation;</span><br><span class="line">+--------------------------------+</span><br><span class="line">| @@global.transaction_isolation |</span><br><span class="line">+--------------------------------+</span><br><span class="line">| READ-UNCOMMITTED               |</span><br><span class="line">+--------------------------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置隔离级别"><a href="#设置隔离级别" class="headerlink" title="设置隔离级别"></a>设置隔离级别</h2><h4 id="方式1：通过set命令"><a href="#方式1：通过set命令" class="headerlink" title="方式1：通过set命令"></a>方式1：通过set命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET [GLOBAL|SESSION] TRANSACTION ISOLATION LEVEL level;</span><br><span class="line">其中level有4种值：</span><br><span class="line">level: &#123;</span><br><span class="line">     REPEATABLE READ</span><br><span class="line">   | READ COMMITTED</span><br><span class="line">   | READ UNCOMMITTED</span><br><span class="line">   | SERIALIZABLE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="关键词：GLOBAL"><a href="#关键词：GLOBAL" class="headerlink" title="关键词：GLOBAL"></a>关键词：GLOBAL</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL TRANSACTION ISOLATION LEVEL level;</span><br><span class="line">eg: set global transaction isolation level read uncommitted;</span><br><span class="line">* 只对执行完该语句之后产生的会话起作用</span><br><span class="line">* 当前已经存在的会话无效</span><br></pre></td></tr></table></figure>
+
+<h5 id="关键词：SESSION"><a href="#关键词：SESSION" class="headerlink" title="关键词：SESSION"></a>关键词：SESSION</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET SESSION TRANSACTION ISOLATION LEVEL level;</span><br><span class="line">* 对当前会话的所有后续的事务有效</span><br><span class="line">* 该语句可以在已经开启的事务中间执行，但不会影响当前正在执行的事务</span><br><span class="line">* 如果在事务之间执行，则对后续的事务有效。</span><br></pre></td></tr></table></figure>
+
+<h5 id="无关键词"><a href="#无关键词" class="headerlink" title="无关键词"></a>无关键词</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET TRANSACTION ISOLATION LEVEL level;</span><br><span class="line">* 只对当前会话中下一个即将开启的事务有效</span><br><span class="line">* 下一个事务执行完后，后续事务将恢复到之前的隔离级别</span><br><span class="line">* 该语句不能在已经开启的事务中间执行，会报错的</span><br></pre></td></tr></table></figure>
+
+<h4 id="方式2：通过服务启动项命令"><a href="#方式2：通过服务启动项命令" class="headerlink" title="方式2：通过服务启动项命令"></a>方式2：通过服务启动项命令</h4><blockquote>
+<p>可以修改启动参数transaction-isolation的值</p>
+<p>比方说我们在启动服务器时指定了–transaction-isolation=READ UNCOMMITTED，那么事务的默认隔离级别就从原来的REPEATABLE READ变成了READ UNCOMMITTED。</p>
+</blockquote>
+<h2 id="关于事务日志"><a href="#关于事务日志" class="headerlink" title="关于事务日志"></a>关于事务日志</h2><p>关于事务日志的说明中，我们可以看得出来，只要修改的数据已经写入到日志并且持久化了，数据本身还没有写入磁盘时，即使断电了，系统在重启的时候依然会将数据恢复。那么我们再来看看官网给出的innodb_flush_log_at_trx_commit 参数的介绍</p>
+<ul>
+<li>为0时，如果MySQL挂了或宕机可能会有1秒数据的丢失。</li>
+<li>为1时， 只要事务提交成功，redo log记录就一定在硬盘里，不会有任何数据丢失。如果事务执行期间MySQL挂了或宕机，这部分日志丢了，但是事务并没有提交，所以日志丢了也不会有损失。</li>
+<li>为2时， 只要事务提交成功，redo log buffer中的内容只写入文件系统缓存（page cache）。如果仅仅只是MySQL挂了不会有任何数据丢失，但是宕机可能会有1秒数据的丢失。</li>
+</ul>
+<p>该属性主要是为数据库的ACID原则进行服务的，并且默认为1，但是实际情况下设置为2会提高很多的事务性能，设置1的时候，innodb的缓存会在事务提交或者每秒钟时都会进行磁盘的刷新操作，2的时候，innodb缓存会在提交事务时写入到事务日志但不会刷新磁盘，然后在每秒钟时进行磁盘刷新操作，2要比1提高很多性能，事务没有commit时，断电了，此时肯定数据是没有更新成功的，因为都还没有来得及写入事务日志，事务提交后，在写入事务日志的时候，发生断电，此时无论是参数的值是1还是2，都应该恢复不了数据了，每秒钟刷新磁盘时，发生断电，此时既然事务日志已经持久化了，那么重启后，数据是会自动恢复的。</p>
+<h4 id="刷盘时机"><a href="#刷盘时机" class="headerlink" title="刷盘时机"></a>刷盘时机</h4><p>InnoDB 存储引擎为 redo log 的刷盘策略提供了 innodb_flush_log_at_trx_commit 参数，它支持三种策略：</p>
+<ul>
+<li><strong>0</strong> ：设置为 0 的时候，表示每次事务提交时不进行刷盘操作，后台线程进行刷盘</li>
+<li><strong>1</strong> ：设置为 1 的时候，表示每次事务提交时都将进行刷盘操作（默认值）</li>
+<li><strong>2</strong> ：设置为 2 的时候，表示每次事务提交时都只把 redo log buffer 内容写入 page cache</li>
+</ul>
+<p>innodb_flush_log_at_trx_commit 参数默认为 1 ，也就是说当事务提交时会调用 fsync 对 redo log 进行刷盘</p>
+<p>另外，InnoDB 存储引擎有一个后台线程，每隔1 秒，就会把 redo log buffer 中的内容写到文件系统缓存（page cache），然后调用 fsync 刷盘。也就是说，一个没有提交事务的 redo log 记录，也可能会刷盘。因为在事务执行过程 redo log 记录是会写入redo log buffer 中，这些 redo log 记录会被后台线程刷盘。除了后台线程每秒1次的轮询操作，还有一种情况，当 redo log buffer 占用的空间即将达到 innodb_log_buffer_size 一半的时候，后台线程会主动刷盘。</p>
+<h4 id="日志存储方式"><a href="#日志存储方式" class="headerlink" title="日志存储方式"></a>日志存储方式</h4><p>硬盘上存储的 redo log 日志文件不只一个，而是以一个日志文件组的形式出现的，每个的redo日志文件大小都是一样的。<br>比如可以配置为一组4个文件，每个文件的大小是 1GB，整个 redo log 日志文件组可以记录4G的内容。<br>它采用的是环形数组形式，从头开始写，写到末尾又回到头循环写，在个日志文件组中还有两个重要的属性，分别是 write pos、checkpoint</p>
+<ul>
+<li>write pos 是当前记录的位置，一边写一边后移</li>
+<li>checkpoint 是当前要擦除的位置，也是往后推移<br>每次刷盘 redo log 记录到日志文件组中，write pos 位置就会后移更新。如果 write pos 追上 checkpoint ，表示日志文件组满了，这时候不能再写入新的 redo log 记录，MySQL 得停下来，清空一些记录，把 checkpoint 推进一下。</li>
+</ul>
+<h2 id="关于Autocommit"><a href="#关于Autocommit" class="headerlink" title="关于Autocommit"></a>关于Autocommit</h2><p>当变量autocommit的值为ON时，代表自动提交开启，改为OFF则变为手动提交。在手动提交模式下，可以使用下面两种指令开启事务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">begin;</span><br></pre></td></tr></table></figure>
+
+<p>结束事务的方式也有两种，事务确认提交</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">commit;</span><br><span class="line">rollback;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set @@autocommit=0;</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW VARIABLES like &#x27;%autocommit%&#x27;;</span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| autocommit    | OFF   |</span><br><span class="line">+---------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="悲观锁与乐观锁"><a href="#悲观锁与乐观锁" class="headerlink" title="悲观锁与乐观锁"></a>悲观锁与乐观锁</h2><ul>
+<li><p><strong>悲观锁</strong>：悲观锁指对数据被意外修改持保守态度，依赖数据库原生支持的锁机制来保证当前事务处理的安全性，防止其他并发事务对目标数据的破坏或破坏其他并发事务数据，将在事务开始执行前或执行中申请锁定，执行完后再释放锁定。这对于长事务来讲，可能会严重影响系统的并发处理能力</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LOCK TABLES a WRITE;</span><br><span class="line">INSERT INTO a VALUES (1,23),(2,34),(4,33);</span><br><span class="line">INSERT INTO a VALUES (8,26),(6,29);</span><br><span class="line">UNLOCK TABLES;</span><br></pre></td></tr></table></figure>
+
+<p>锁定表可以加速用多个语句执行的INSERT操作，因为索引缓存区仅在所有INSERT语句完成后刷新到磁盘上一次。一般有多少INSERT语句即有多少索引缓存区刷新，如果能用一个语句插入所有的行，就不需要锁定；对于事务表，应使用BEGIN和COMMIT代替LOCK TABLES来加快插入</p>
+</li>
+<li><p><strong>乐观锁</strong>：乐观锁相对悲观锁而言，先假想数据不会被并发操作修改，没有数据冲突，只在数据进行提交更新的时候，才会正式对数据的冲突与否进行检测，如果发现冲突了，则宣告失败，否则更新数据。这就要求避免使用长事务和锁机制，以免导致系统并发处理能力降低，保障系统生产效率。下面将说明使用乐观锁时的大致业务处理流程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">首 步：执行一次查询 select some_column as old_value from some_table where id = id_value (假设该值在当前业务处理过程中不会被其他并发事务修改)</span><br><span class="line">...</span><br><span class="line">第n步：old_value参与中间业务处理，比如old_value被自己修改 new_value = f(old_value)。这期间可能耗时很长，但不会为持有 some_column 而申请所在的行或表锁定，因此其他并发事务可以获得该锁</span><br><span class="line">...</span><br><span class="line">尾 步：执行条件更新 update some_table set some_column = new_value where id = id_value and some_column = old_value (条件更新中检查old_value是否被修改)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="三大日志"><a href="#三大日志" class="headerlink" title="三大日志"></a>三大日志</h2><p>MySQL InnoDB 引擎使用 redo log(重做日志) 保证事务的持久性，使用 undo log(回滚日志) 来保证事务的原子性。<br>MySQL数据库的数据备份、主备、主主、主从都离不开binlog，需要依靠binlog来同步数据，保证数据一致性。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
