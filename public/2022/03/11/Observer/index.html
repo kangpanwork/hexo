@@ -11,7 +11,7 @@
 
     <title>
         
-        
+        Observer - undefined
         
     </title>
 
@@ -69,7 +69,7 @@
                     <span>标签</span>
                 </a>
             </li>
-            <li  class=active >
+            <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
@@ -91,6 +91,10 @@
             
         </ul>
     </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84"><span class="toc-text">观察者模式结构</span></a></li></ol>
+</div>
     
 </div>
 
@@ -118,110 +122,46 @@
         
 
 
-<!-- 归档列表 -->
+<div class="post-container">
+    <div class="post-title">
+        Observer
+    </div>
 
-<div class="archives-container">
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-03-11 10:06:15</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Design" title="Design">Design</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="观察者模式结构"><a href="#观察者模式结构" class="headerlink" title="观察者模式结构"></a>观察者模式结构</h2><p>观察者模式（Observer）又称发布-订阅模式（Publish-Subscribe：Pub/Sub），它是一种通知机制。</p>
+<ol>
+<li><strong>发布者</strong> （Publisher） 向对应的订阅者发送事件，发布者内部有一个订阅者列表的数据结构，支持添加和移除订阅者。</li>
+<li><strong>订阅者</strong> （Subscriber） 声明了通知接口。 在绝大多数情况下， 该接口仅包含一个方法，用来处理发布的事件。</li>
+<li><strong>具体订阅者</strong> （Concrete Subscribers） 具体订阅者类实现了订阅者的接口，不同事件的处理逻辑。</li>
+<li><strong>事件</strong>（Event）声明了事件接口。一个标识接口，标识是一个事件。</li>
+<li><strong>具体事件</strong>（Concrete Event）具体事件，当事件通过发布者去发布的时候，发布者会遍历订阅列表执行对应的订阅者的方法。</li>
+</ol>
+<p>订阅者也叫观察者，被观察者就是发布的具体事件。在消息队列中，利用了发布-订阅模式工作，被观察者对应消息发送者（生产者），订阅者对应的是消费者。消息队列中内部有发布者的功能，订阅者将自己注册到里面，可以接收对应的系统发送的消息。 <a target="_blank" rel="noopener" href="https://github.com/kangpanwork/Observer">参考代码</a></p>
 
-<div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2022">
-                    <span class="tag-text">2022</span>
-                </span>
-    <ul>
         
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>03-11</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2022/03/11/Observer/">
-                        <span>
-                            Observer
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>03-10</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2022/03/10/MySql-Transaction-Isolation-Level/">
-                        <span>
-                            MySql-Transaction-Isolation-Level
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>03-10</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2022/03/10/MyBatis-Plugin-Development/">
-                        <span>
-                            MyBatis-Plugin-Development
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>03-09</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2022/03/09/Run-Time-Data-Areas/">
-                        <span>
-                            Run-Time-Data-Areas
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>03-09</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2022/03/09/Install-WSL/">
-                        <span>
-                            Install-WSL
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li >
-            <span>03-09</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2022/03/09/Hexo-Theme-AirCloud/">
-                        <span>
-                            Hexo-Theme-AirCloud
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
 
-    </ul>
-</div>
+        <div id="lv-container">
+        </div>
 
+    </div>
 </div>
 
     </div>
@@ -262,7 +202,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
