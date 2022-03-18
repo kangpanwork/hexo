@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        java线程池 阿里为什么不允许使用Executors? - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> sometimes code， sometimes design </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Pan Kang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%A6%E7%9D%80%E9%97%AE%E9%A2%98"><span class="toc-text">带着问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F"><span class="toc-text">什么是线程池？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%BE%88%E2%80%9C%E8%B4%B5%E2%80%9D%E5%90%97%EF%BC%9F"><span class="toc-text">创建线程很“贵”吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%9C%BA%E5%88%B6%EF%BC%9F"><span class="toc-text">线程池的机制？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%98%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E6%B1%A0%EF%BC%9F"><span class="toc-text">还有哪些常见的池？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-text">Java中的线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UML%E5%9B%BE%EF%BC%88Java-8%EF%BC%89"><span class="toc-text">UML图（Java 8）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Executors%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95"><span class="toc-text">Executors提供的工厂方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ThreadPoolExecutor"><span class="toc-text">ThreadPoolExecutor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97%E3%80%81%E6%A0%B8%E5%BF%83%E7%BA%BF%E7%A8%8B%E6%95%B0%E3%80%81%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0%E7%9A%84%E9%80%BB%E8%BE%91%E5%85%B3%E7%B3%BB"><span class="toc-text">任务队列、核心线程数、最大线程数的逻辑关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%A3%E4%B9%88%E8%BF%99%E4%B8%89%E4%B8%AA%E5%8F%82%E6%95%B0%E6%8E%A8%E8%8D%90%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%EF%BC%8C%E6%9C%89%E6%9C%80%E4%BC%98%E5%80%BC%E5%90%97%EF%BC%9F"><span class="toc-text">那么这三个参数推荐如何设置，有最优值吗？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%981%EF%BC%9A%E9%98%BF%E9%87%8C%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%85%81%E8%AE%B8Executors%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F"><span class="toc-text">问题1：阿里开发规范为什么不允许Executors快速创建线程池？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%982%EF%BC%9A%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">问题2：下面的代码输出是什么？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-text">最后</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> sometimes code， sometimes design </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        java线程池 阿里为什么不允许使用Executors?
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-03-18 17:17:46</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h1 id="带着问题"><a href="#带着问题" class="headerlink" title="带着问题"></a>带着问题</h1><ol>
+<li>阿里Java代码规范为什么不允许使用Executors快速创建线程池？</li>
+<li>下面的代码输出是什么？</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor executor = new ThreadPoolExecutor(</span><br><span class="line">        1, //corePoolSize</span><br><span class="line">        100, //maximumPoolSize</span><br><span class="line">        100, //keepAliveTime</span><br><span class="line">        TimeUnit.SECONDS, //unit</span><br><span class="line">        new LinkedBlockingDeque&lt;&gt;(100));//workQueue</span><br><span class="line"></span><br><span class="line">for (int i = 0; i &lt; 5; i++) &#123;</span><br><span class="line">    final int taskIndex = i;</span><br><span class="line">    executor.execute(() -&gt; &#123;</span><br><span class="line">        System.out.println(taskIndex);</span><br><span class="line">        try &#123;</span><br><span class="line">            Thread.sleep(Long.MAX_VALUE);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>A) 0 1 2 3 4 5<br>B) 0~5 顺序不一致输出5行<br>C) 0</p>
+</blockquote>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="什么是线程池？"><a href="#什么是线程池？" class="headerlink" title="什么是线程池？"></a>什么是线程池？</h2><p>线程池可以通过池看出来是一个资源集，任何池的作用都大同小异，主要是用来减少资源创建、初始化的系统开销。</p>
+<h3 id="创建线程很“贵”吗？"><a href="#创建线程很“贵”吗？" class="headerlink" title="创建线程很“贵”吗？"></a>创建线程很“贵”吗？</h3><p>是的。创建线程的代价是昂贵的。</p>
+<p>我们都知道系统中的每个进程有自己独立的内存空间，而被称为轻量级进程的线程也是需要的。</p>
+<p>在JVM中默认一个线程需要使用256k~1M（取决于32位还是64位操作系统）的内存。（具体的数组我们不深究，因为随着JVM版本的变化这个默认值随时可能发生变更，我们只需要知道线程是需要占用内存的）</p>
+<p><strong>除了内存还有更多吗？</strong><br>许多文章会将上下文切换、CPU调度列入其中，这边不将线程调度列入是因为睡眠中的线程不会被调度（OS控制），如果不是睡眠中的线程那么是一定需要被调度的。<br>但在JVM中除了创建时的内存消耗，还会给GC带来压力，如果频繁创建线程那么相对的GC的时候也需要回收对应的线程。</p>
+<h3 id="线程池的机制？"><a href="#线程池的机制？" class="headerlink" title="线程池的机制？"></a>线程池的机制？</h3><p>可以看到线程池是一种重复利用线程的技术，线程池的主要机制就是保留一定的线程数在没有事情做的时候使之睡眠，当有活干的时候拿一个线程去运行。<br>这些牵扯到线程池实现的具体策略。</p>
+<h3 id="还有哪些常见的池？"><a href="#还有哪些常见的池？" class="headerlink" title="还有哪些常见的池？"></a>还有哪些常见的池？</h3><ul>
+<li>线程池</li>
+<li>连接池（数据库连接、TCP连接等）</li>
+<li>BufferPool</li>
+<li>……</li>
+</ul>
+<h1 id="Java中的线程池"><a href="#Java中的线程池" class="headerlink" title="Java中的线程池"></a>Java中的线程池</h1><h2 id="UML图（Java-8）"><a href="#UML图（Java-8）" class="headerlink" title="UML图（Java 8）"></a>UML图（Java 8）</h2><p>可以看到真正的实现类有</p>
+<ol>
+<li>ThreadPoolExecutor (1.5)</li>
+<li>ForkJoinPool (1.7)</li>
+<li>ScheduledThreadPoolExecutor (1.5)</li>
+</ol>
+<p>今天我们主要谈谈 ThreadPoolExecutor 也是使用率较高的一个实现。</p>
+<h2 id="Executors提供的工厂方法"><a href="#Executors提供的工厂方法" class="headerlink" title="Executors提供的工厂方法"></a>Executors提供的工厂方法</h2><ol>
+<li>newCachedThreadPool (ThreadPoolExecutor)</li>
+</ol>
+<blockquote>
+<p>创建一个可缓存的线程池。如果线程池的大小超过了处理任务所需要的线程,那么就会回收部分空闲（60秒不执行任务）的线程，当任务数增加时，此线程池又可以智能的添加新线程来处理任务。此线程池不会对线程池大小做限制，线程池大小完全依赖于操作系统（或者说JVM）能够创建的最大线程大小。</p>
+</blockquote>
+<ol>
+<li>newFixedThreadPool (ThreadPoolExecutor)</li>
+</ol>
+<blockquote>
+<p>创建固定大小的线程池。每次提交一个任务就创建一个线程，直到线程达到线程池的最大大小。线程池的大小一旦达到最大值就会保持不变，如果某个线程因为执行异常而结束，那么线程池会补充一个新线程。</p>
+</blockquote>
+<ol>
+<li>newSingleThreadExecutor (ThreadPoolExecutor)</li>
+</ol>
+<blockquote>
+<p>创建一个单线程的线程池。这个线程池只有一个线程在工作，也就是相当于单线程串行执行所有任务。如果这个唯一的线程因为异常结束，那么会有一个新的线程来替代它。此线程池保证所有任务的执行顺序按照任务的提交顺序执行。</p>
+</blockquote>
+<ol>
+<li>newScheduledThreadPool (ScheduledThreadPoolExecutor)</li>
+</ol>
+<blockquote>
+<p>创建一个大小无限的线程池。此线程池支持定时以及周期性执行任务的需求。</p>
+</blockquote>
+<ol>
+<li>newSingleThreadScheduledExecutor (ScheduledThreadPoolExecutor)</li>
+</ol>
+<blockquote>
+<p>创建一个单线程用于定时以及周期性执行任务的需求。</p>
+</blockquote>
+<ol>
+<li>newWorkStealingPool (1.8 ForkJoinPool)</li>
+</ol>
+<blockquote>
+<p>创建一个工作窃取</p>
+</blockquote>
+<p>可以看到各种不同的工厂方法中使用的线程池实现类最终只有3个，对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">工厂方法</th>
+<th align="left">实现类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">newCachedThreadPool</td>
+<td align="left">ThreadPoolExecutor</td>
+</tr>
+<tr>
+<td align="left">newFixedThreadPool</td>
+<td align="left">ThreadPoolExecutor</td>
+</tr>
+<tr>
+<td align="left">newSingleThreadExecutor</td>
+<td align="left">ThreadPoolExecutor</td>
+</tr>
+<tr>
+<td align="left">newScheduledThreadPool</td>
+<td align="left">ScheduledThreadPoolExecutor</td>
+</tr>
+<tr>
+<td align="left">newSingleThreadScheduledExecutor</td>
+<td align="left">ScheduledThreadPoolExecutor</td>
+</tr>
+<tr>
+<td align="left">newWorkStealingPool</td>
+<td align="left">ForkJoinPool</td>
+</tr>
+</tbody></table>
+<h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><p>首先我们看下 ThreadPoolExecutor 的完全构造函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public ThreadPoolExecutor(int corePoolSize,</span><br><span class="line">                              int maximumPoolSize,</span><br><span class="line">                              long keepAliveTime,</span><br><span class="line">                              TimeUnit unit,</span><br><span class="line">                              BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                              ThreadFactory threadFactory,</span><br><span class="line">                              RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>corePoolSize</li>
+</ol>
+<blockquote>
+<p>核心池大小，除非设置了 allowCoreThreadTimeOut 否则哪怕线程超过空闲时间，池中也要最少要保留这个数目的线程。</p>
+<p>需要注意的是，corePoolSize所需的线程并不是立即创建的，需要在提交任务之后进行创建，所以如果有大量的缓存线程数可以先提交一个空任务让线程池将线程先创建出来，从而提升后续的执行效率。</p>
+</blockquote>
+<ol>
+<li>maximumPoolSize</li>
+</ol>
+<blockquote>
+<p>允许的最大线程数。</p>
+</blockquote>
+<ol>
+<li>keepAliveTime</li>
+</ol>
+<blockquote>
+<p>空闲线程空闲存活时间，核心线程需要 allowCoreThreadTimeOut 为true才会退出。</p>
+</blockquote>
+<ol>
+<li>unit</li>
+</ol>
+<blockquote>
+<p>与 keepAliveTime配合，设置 keepAliveTime的单位，如：毫秒、秒。</p>
+</blockquote>
+<ol>
+<li>workQueue</li>
+</ol>
+<blockquote>
+<p>线程池中的任务队列。上面提到线程池的主要作用是复用线程来处理任务，所以我们需要一个队列来存放需要执行的任务，在使用池中的线程来处理这些任务，所以我们需要一个任务队列。</p>
+</blockquote>
+<ol>
+<li>threadFactory</li>
+</ol>
+<blockquote>
+<p>当线程池判断需要新的线程时通过线程工程创建线程。</p>
+</blockquote>
+<ol>
+<li>handler</li>
+</ol>
+<blockquote>
+<p>执行被阻止时的处理程序，线程池无法处理。这个与任务队列相关，比如队列中可以指定队列大小，如果超过了这个大小该怎么办呢？JDK已经为我们考虑到了，并提供了4个默认实现。</p>
+</blockquote>
+<p>下列是JDK中默认携带的策略:</p>
+<ol>
+<li>AbortPolicy (默认)</li>
+</ol>
+<blockquote>
+<p>抛出 RejectedExecutionException 异常。</p>
+</blockquote>
+<ol>
+<li>CallerRunsPolicy</li>
+</ol>
+<blockquote>
+<p>调用当前线程池所在的线程去执行。</p>
+</blockquote>
+<ol>
+<li>DiscardPolicy</li>
+</ol>
+<blockquote>
+<p>直接丢弃当前任务。</p>
+</blockquote>
+<ol>
+<li>DiscardOldestPolicy</li>
+</ol>
+<blockquote>
+<p>将最旧的任务丢弃，将当前任务添加到队列。</p>
+</blockquote>
+<p>容易混淆的参数：corePoolSize maximumPoolSize workQueue</p>
+<h3 id="任务队列、核心线程数、最大线程数的逻辑关系"><a href="#任务队列、核心线程数、最大线程数的逻辑关系" class="headerlink" title="任务队列、核心线程数、最大线程数的逻辑关系"></a>任务队列、核心线程数、最大线程数的逻辑关系</h3><ol>
+<li>当线程数小于核心线程数时，创建线程。</li>
+<li>当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列。</li>
+<li>当线程数大于等于核心线程数，且任务队列已满<ol>
+<li>若线程数小于最大线程数，创建线程</li>
+<li>若线程数等于最大线程数，调用拒绝执行处理程序（默认效果为：抛出异常，拒绝任务）</li>
+</ol>
+</li>
+</ol>
+<h3 id="那么这三个参数推荐如何设置，有最优值吗？"><a href="#那么这三个参数推荐如何设置，有最优值吗？" class="headerlink" title="那么这三个参数推荐如何设置，有最优值吗？"></a>那么这三个参数推荐如何设置，有最优值吗？</h3><p>由于java对于协程的支持不友好，所以会大量依赖于线程池和线程。<br>从而这个值没有最优推荐，需要根据业务需求情况来进行设置。<br>不同的需求类型可以创建多个不同的线程池来执行。</p>
+<h2 id="问题1：阿里开发规范为什么不允许Executors快速创建线程池？"><a href="#问题1：阿里开发规范为什么不允许Executors快速创建线程池？" class="headerlink" title="问题1：阿里开发规范为什么不允许Executors快速创建线程池？"></a>问题1：阿里开发规范为什么不允许Executors快速创建线程池？</h2><blockquote>
+<p>参考地址：<a target="_blank" rel="noopener" href="https://github.com/alibaba/p3c">https://github.com/alibaba/p3c</a></p>
+</blockquote>
+<p>可以看到原因很简单</p>
+<ol>
+<li>newSingleThreadExecutor</li>
+<li>newFixedThreadPool</li>
+</ol>
+<p>在 workQueue 参数直接 使用了 new LinkedBlockingQueue<Runnable>() 理论上可以无限添加任务到线程池。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static ExecutorService newFixedThreadPool(int nThreads) &#123;</span><br><span class="line">    return new ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                    0L, TimeUnit.MILLISECONDS,</span><br><span class="line">                                    new LinkedBlockingQueue&lt;Runnable&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static ExecutorService newSingleThreadExecutor() &#123;</span><br><span class="line">    return new FinalizableDelegatedExecutorService(new ThreadPoolExecutor(1,</span><br><span class="line">    1,</span><br><span class="line">    0L,</span><br><span class="line">    TimeUnit.MILLISECONDS,</span><br><span class="line">    new LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果提交到线程池的任务由问题，比如 sleep 永久，会造成内存泄漏，最终导致OOM。</p>
+<p>同时 阿里还推荐自定义 threadFactory 设置线程名称便于以后排查问题。</p>
+<h2 id="问题2：下面的代码输出是什么？"><a href="#问题2：下面的代码输出是什么？" class="headerlink" title="问题2：下面的代码输出是什么？"></a>问题2：下面的代码输出是什么？</h2><p>应该选C。<br>虽然最大线程数有100但核心线程数为1，任务队列由100。<br>满足了 当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列，这个条件。<br>所以后续添加的任务都会被堵塞。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>关于 ThreadPoolExecutor 的逻辑在实际使用的时候会有点奇怪，因为线程池中的线程并没有超过最大线程数，有没有一种可能当任务被堵塞很久的时候创建新的线程池来处理呢？</p>
+<p>这边推荐大家使用 newWorkStealingPool，也就是ForkJoinPool。采取了工作窃取的模式。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
