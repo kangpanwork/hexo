@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        LotReassign - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> sometimes code， sometimes design </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Pan Kang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0"><span class="toc-text">功能描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Lot-Reassign-%E5%88%86%E4%B8%BA%E4%B8%89%E4%B8%AA%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-text">Lot Reassign 分为三个功能模块：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Lot-Reassign"><span class="toc-text">Lot Reassign</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Only-Product-Change"><span class="toc-text">Only Product Change</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Only-Version-Up"><span class="toc-text">Only Version Up</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1"><span class="toc-text">详细设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-Action"><span class="toc-text">Future Action</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Check"><span class="toc-text">Check</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Do-Action"><span class="toc-text">Do Action</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Copy-Action"><span class="toc-text">Copy Action</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Do-Reassign"><span class="toc-text">Do Reassign</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Post-Reassign"><span class="toc-text">Post Reassign</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-Reassign"><span class="toc-text">Future Reassign</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#History"><span class="toc-text">History</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%95%8C%E9%9D%A2%E8%AE%BE%E8%AE%A1"><span class="toc-text">界面设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2%E5%8C%BA%E5%9F%9F"><span class="toc-text">条件查询区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E5%88%A0%E9%99%A4-Future-Action"><span class="toc-text">是否删除 Future Action</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%95%B0%E6%8D%AE%E5%88%97%E8%A1%A8%E5%8C%BA%E5%9F%9F"><span class="toc-text">查询的数据列表区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0"><span class="toc-text">添加</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1"><span class="toc-text">接口设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="toc-text">数据库设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PD"><span class="toc-text">PD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PF"><span class="toc-text">PF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#POS"><span class="toc-text">POS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PO"><span class="toc-text">PO</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> sometimes code， sometimes design </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        LotReassign
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-05-09 16:30:19</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Design" title="Design">Design</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>在北京中芯国际出差这段日子，主要负责了 Lot Reassign 这个功能模块，同时也了解了 EDC 这个功能模块，我会在之后的文章介绍。</p>
+<h3 id="功能描述"><a href="#功能描述" class="headerlink" title="功能描述"></a>功能描述</h3><h4 id="Lot-Reassign-分为三个功能模块："><a href="#Lot-Reassign-分为三个功能模块：" class="headerlink" title="Lot Reassign 分为三个功能模块："></a>Lot Reassign 分为三个功能模块：</h4><ol>
+<li>Only Product Change</li>
+<li>Lot Reassign</li>
+<li>Only Version Up</li>
+</ol>
+<h4 id="Lot-Reassign"><a href="#Lot-Reassign" class="headerlink" title="Lot Reassign"></a>Lot Reassign</h4><p>Lot Reassign 主要是对当前 Lot 进行 Product、Process 、Route、 Step 进行更改。</p>
+<p>下图是 Process、Route 及 Step 的关系图，可以理解为工艺、工步、工序。</p>
+<p>Process、Route、Step 在 MDS 进行配置。</p>
+<p><img src="https://img.gejiba.com/images/a2be5408ea04bcf4ce341d0a10809ff7.png" alt="a2be5408ea04bcf4ce341d0a10809ff7.png"></p>
+<h4 id="Only-Product-Change"><a href="#Only-Product-Change" class="headerlink" title="Only Product Change"></a>Only Product Change</h4><p>对 Lot 的 Product 信息进行改变，Product 信息 在 MDS 系统进行配置，可以配置当前 Product 和 升版的 Product 及 Active 的 Product，eg：ProductA.1、ProductA.2（Active）。如果对某个 Lot 进行 Product Change 那么默认取 Active 的最高版本的 Product。</p>
+<p>如果 Product 对应的 Process、Route 及 Step 有 Active 并且升版的数据，那么默认也要取这些数据进行Update。</p>
+<h4 id="Only-Version-Up"><a href="#Only-Version-Up" class="headerlink" title="Only Version Up"></a>Only Version Up</h4><p>仅仅对 Lot 的 Product、Process、Route、Step 进行升版（版本应该处于 Active 状态）。</p>
+<h3 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h3><h4 id="Future-Action"><a href="#Future-Action" class="headerlink" title="Future Action"></a>Future Action</h4><p>针对这三个功能，它们有着公共的需要处理的业务场景就是 Future Action，</p>
+<p>eg：Future Hold，Future Rework，Future Merger、Future Split、Future Reassign。</p>
+<p>如下图：绿色区域表示 Lot 所在 Step ，红色区域表示未来发生的动作。如果用户勾选删除 Future Action 复选框，进行 Reassign 之前应当提示用户 Lot 的 Process 有哪些 Future Action 会失效。Process A 切换到 Process B ，400 站点的 Future Action 会失效，如果用户未勾选，那么将进行 Copy，Process B 的 400 站点也将设置相同的 Future Action。</p>
+<p><img src="https://img.gejiba.com/images/c9203e83b558854ceee83791060af954.png" alt="c9203e83b558854ceee83791060af954.png"></p>
+<h4 id="Check"><a href="#Check" class="headerlink" title="Check"></a>Check</h4><p>在执行这三个功能的前置动作除了 Future Action 提示外，还将进行一系列的 Check 操作，eg：检查 Lot 的状态是否处于 Hold 状态，是否是要生产的 Lot（可能已经报废，终止，完成）等，是否正在进行加工中，是否处于异步执行等逻辑。这些检查逻辑需要详细的罗列出来，并且检查顺序要有一个优先级。当不满足某个条件，应当立即返回提示信息。因为界面支持批量，对多个 Lot 进行 Reassign 操作，所以 Check 之后应当提示哪些 Lot 是成功的，哪些是失败的及失败原因。这里存在性能问题，因为是批量，并且需要检查很多业务逻辑，调用很多不同的查询方法，接口性能需控制在 300ms，所以应当控制多少个 Lot 去处理。</p>
+<h4 id="Do-Action"><a href="#Do-Action" class="headerlink" title="Do Action"></a>Do Action</h4><p>当经过一系列的检查逻辑之后，该 Lot 满足执行 Reassign 操作，在执行 Reassign 之前还将触发某些 Action ，eg：当 Process A 100 直接 Reassign to Process A 400。具体可能触发  Hold，Future Reassign 等，这些 Action 需具体罗列出来，并且排列优先级去执行。当前站点可能多个 Action ，应当考虑先触发哪个，后触发哪个，或者哪些不会触发。 eg：400 站点有 Hold Action、Rework Action、Reassign Action。必须先触发 Hold，</p>
+<p>然而 Rework 和 Reassign 哪个先执行呢，这个很让人头大，因为这两个 Action 只会先执行其中一个，如果先执行 Rework，那么回到了 400 前的站点，同时删除 Rework Action，当又到达 400 站点的时候，Rework Action 不存在，这个时候就会执行 Reassign。那假设先执行的 Reassign ，Lot 可能已经不在当前 Flow 了，如果用户勾选了删除 Future Action，那么 Rework 永远不会执行。如果未勾选会 Copy Rework Action，参考下图：</p>
+<p>但如果 A 400 到 B 400 之后是不会触发 Copy 的 Action，此时 Copy 对当前 Lot 没有意义。关于执行优先级需要沟通，根据业务场景定好优先级。因为触发顺序不一样，结果也不一样。</p>
+<p><img src="https://img.gejiba.com/images/1fb33840e007d2cb619fc2ace11dd958.png" alt="1fb33840e007d2cb619fc2ace11dd958.png"></p>
+<p>如果 Process A 的 100 站点 Reassign to Process B 的 200 站点设置了 Future Action，那么将触发该 Action。</p>
+<p>有一种特殊情况，就是 B Flow 的 200 站点 Action 是 Future Reassign 并且指向的 A Flow 的 100 站点，那么又回到 Reassign 之前的 Flow A，这种操作就会毫无意义，界面应该给予友好提示。更糟糕的事是如果 A Flow 的 100 站点同样设置了 Future Reassign to B  Flow 200，那么将导致死循环。B 200 跳 A 100，A 100 跳 B 200。为了避免这种事情发生，如果 A 100 设置了 Future Reassign to B 200，那么 B 200 是不能设置 Future Reassign to A 100。</p>
+<p><img src="https://img.gejiba.com/images/c9203e83b558854ceee83791060af954.png" alt="c9203e83b558854ceee83791060af954.png"></p>
+<p>这里模拟了几种执行 Action 情况，还有很多情况需要考虑，例如 FSM（Future Split &amp; Merger）等。</p>
+<h4 id="Copy-Action"><a href="#Copy-Action" class="headerlink" title="Copy Action"></a>Copy Action</h4><p>参考上图，如果原 Flow 的站点和目标 Flow 的站点对应，将原 Flow 站点的 Action 进行 Copy。Copy 的时候需要检查目标站点是否发生变化，如果此时站点已经更新了，400 站点不存在，那么应 Hold 原 Flow 当站 100，并且给予提示。</p>
+<h4 id="Do-Reassign"><a href="#Do-Reassign" class="headerlink" title="Do Reassign"></a>Do Reassign</h4><p>这一步之前仍然需要 Check 目标信息是否存在，如果不存在 Hold 当站，并且给予提示。将进行 Product Change 或者 Version Up 或者 Flow 的变更操作，之后就是写入历史记录。如果某个 Lot 正在加工中，具有 Control Job</p>
+<p>那么会创建一条 Future Reassign，也就是 Post Reassign。</p>
+<p><img src="https://img.gejiba.com/images/71ae22434c908489f4eb8106ff4d4953.png" alt="71ae22434c908489f4eb8106ff4d4953.png"> </p>
+<h4 id="Post-Reassign"><a href="#Post-Reassign" class="headerlink" title="Post Reassign"></a>Post Reassign</h4><p>当前 Lot 已经进入机台正在加工中，这个时候是不能进行 Reassign 操作的，但是会默认创建一条 Future Reassign 的数据，Lot Move out 的时候再去执行这条数据。这里有几点要注意，因为这种情况 200 站点已经创建了一条 Future Reassign ，那么界面上不能手动再去创建 200 站点的 Future Reassign。一个站点只能有一条 Future Reassign 数据。因为是先创建数据，然后再去执行，所以执行的时候需要 Check 数据信息的正确性。如果目标站点不存在那么需要 Hold 当站，并且给予提示。</p>
+<p><img src="https://img.gejiba.com/images/437b42ecaedae43ee2c623c55ad9db0f.png" alt="437b42ecaedae43ee2c623c55ad9db0f.png"></p>
+<h4 id="Future-Reassign"><a href="#Future-Reassign" class="headerlink" title="Future Reassign"></a>Future Reassign</h4><p>未来执行的 Reassign 操作，可以提前设置。当 Lot 进行 Move Out （移出机台）或者 Pass Thu （过站）等操作的时候，会异步执行 Reassign 操作。有些 Main Process （主要的业务操作）有很多 Post Process（异步操作），例如 Move Out 可能会有以下异步操作。</p>
+<p><img src="https://img.gejiba.com/images/dc0b99d09e34722f9f0cf444997e5aca.png" alt="dc0b99d09e34722f9f0cf444997e5aca.png"></p>
+<p>Future Reassign 也属于其中一种，如果 Future Reassign 在 Check 阶段失败了，那么应当怎么处理。因为它是</p>
+<p>异步操作，没有和主逻辑在同一个事务，Future Reassign 失败了，Move Out 还是成功的。并且如果 Process Move 这个操作在 Future Reassign 之前，那么还会到下个站点。这种情况不符合业务场景，Future Reassign 失败了应该 Hold 当站，不能移动到下个站点，而且界面应当具备可以查看哪些异步操作是成功，哪些是失败，失败原因是什么。在 Future Reassign 中 Hold 方法和 Check 方法是同一个事务，Check 方法失败抛异常会导致 Hold 方法事务回滚，所以没有办法去 Hold 当站。（可以通过环境变量去控制，这个我会在之后的 Post Process 文章详细介绍）。</p>
+<p>界面支持手动创建和删除 Future Reassign。</p>
+<h4 id="History"><a href="#History" class="headerlink" title="History"></a>History</h4><p>NA</p>
+<h3 id="界面设计"><a href="#界面设计" class="headerlink" title="界面设计"></a>界面设计</h3><h4 id="条件查询区域"><a href="#条件查询区域" class="headerlink" title="条件查询区域"></a>条件查询区域</h4><p>From 区域：用户可以根据 Product、Process、Route、Lot 四个之一去查询，例如 Process 下拉框，下拉会查询所有的 Process 数据，如果用户先选择 Product，那么需联动出来对应的 Process 和 Route 数据，如果有一对多关系，需用户手动选择，如果只有一个，默认带出。可以查询 Active 和非 Active 的数据。</p>
+<p>To 区域：只能查询 Active 的数据，并且只能联动，不能单个下拉查询。</p>
+<h4 id="是否删除-Future-Action"><a href="#是否删除-Future-Action" class="headerlink" title="是否删除 Future Action"></a>是否删除 Future Action</h4><p>Product Change 和 Version Up 默认不勾选，因为这两种情况一般不会改变 Flow ，所以保持原样。</p>
+<p>Reassign 默认勾选删除，因为会从当前 Flow 改变到其它 Flow。当前 Flow 的 Action 对应该 Lot 是</p>
+<p>没有意义的，需要 Copy 到新的 Flow 上。</p>
+<h4 id="查询的数据列表区域"><a href="#查询的数据列表区域" class="headerlink" title="查询的数据列表区域"></a>查询的数据列表区域</h4><p>默认查所有，暂时不支持分页。可以下拉选择然后添加到右边列表。</p>
+<h4 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h4><p>如果单选框选择的是 Product Change，那么添加的时候只能添加相同 Process 的数据。</p>
+<p>保持 Flow 不变，仅仅改变 Product 。</p>
+<p>如果选择的是 Version Up，那么 Lot 的 Product、Process、Route 必须一致才能添加。</p>
+<p>如果选择的是 Reassign ，无需卡控，查询出来的数据都能添加到右边列表中。</p>
+<p><img src="https://img.gejiba.com/images/fc89d8b2b53d567e77dc9c03386f4d04.png" alt="fc89d8b2b53d567e77dc9c03386f4d04.png"></p>
+<h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><p>NA</p>
+<h3 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h3><h4 id="PD"><a href="#PD" class="headerlink" title="PD"></a>PD</h4><p>图中一个个原点表示（Process Define 数据）</p>
+<h4 id="PF"><a href="#PF" class="headerlink" title="PF"></a>PF</h4><p>一个原点与原点直接的黑色实线表示 PF（记录 PD 的下级所属关系表）</p>
+<p>其中有个字段 LEVEL，有以下三种值</p>
+<ul>
+<li>Main_Mod（Process 与 Route 关系）</li>
+<li>Main_Ope（Process 与 Step 关系）</li>
+<li>Module（Route 与 Step 关系）</li>
+</ul>
+<p>PF_Route 、PF_Step 表示具体的信息。</p>
+<h4 id="POS"><a href="#POS" class="headerlink" title="POS"></a>POS</h4><p>Step 配置信息</p>
+<h4 id="PO"><a href="#PO" class="headerlink" title="PO"></a>PO</h4><p>Process Operation 运行时数据 </p>
+<p><img src="https://img.gejiba.com/images/a2be5408ea04bcf4ce341d0a10809ff7.png" alt="a2be5408ea04bcf4ce341d0a10809ff7.png"></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
