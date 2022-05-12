@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        JVM - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> sometimes code， sometimes design </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Pan Kang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F"><span class="toc-text">运行时数据区域</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-text">程序计数器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="toc-text">虚拟机栈</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> sometimes code， sometimes design </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        JVM
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-05-12 14:03:35</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h3 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h3><p>HotSpot 虚拟机</p>
+<p><img src="https://img.gejiba.com/images/61739beeb3810e7c2ae5e30bb5980584.png" alt="61739beeb3810e7c2ae5e30bb5980584.png"></p>
+<p>JAVA 1.8 移除方法区，移到了本地内存的元空间。</p>
+<p><img src="https://img.gejiba.com/images/5249b2be8bc23b68fc0b388a0fcd1485.png" alt="5249b2be8bc23b68fc0b388a0fcd1485.png"></p>
+<h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><p>程序计数器（Program Counter Register）是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令、分支、循环、</p>
+<p>跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。为什么需要程序计数器？程序一般都是多线程执行，JVM多线程是通过 CPU 时间片切换来实现，如果某个线程在执行的过程中挂起，当再次获取时间片时，字节码解释器需要从挂起的位置继续执行，程序计数器可以用来记录执行位置。</p>
+<p>特点：</p>
+<ol>
+<li>线程隔离</li>
+<li>内存小</li>
+<li>不会造成 OOM</li>
+<li>记录程序执行字节码的地址</li>
+<li>执行 Native 本地方法，值为空。通过 JNI 调用本地 C++、C 库来实现。</li>
+</ol>
+<h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><p>每个方法执行都会创建一个栈帧（Stack Frame）用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中入栈到出栈的过程。下图是运行时栈帧结构。</p>
+<p><img src="https://img.gejiba.com/images/9f5720e95820992dffece227c332c6a1.png" alt="9f5720e95820992dffece227c332c6a1.png"></p>
+<p><img src="https://img.gejiba.com/images/b28ba1388a7bd111e0c4f74296bb0d57.png" alt="b28ba1388a7bd111e0c4f74296bb0d57.png"></p>
+<ol>
+<li><p>局部变量表用于存放方法参数和方法内部定义的局部变量，包括各种基本数据类型（boolean、byte、char、short、int、float、long、double、对象引用 reference类型）。</p>
+<p>局部变量表 Slot 复用对垃圾收集的影响，参考代码，启动参数添加 -verbose:gc</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">byte</span>[] placeholder = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">64</span> * <span class="number">1024</span> * <span class="number">1024</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// int a = 1; // 新加一个赋值操作</span></span><br><span class="line">    System.gc();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现并没有被回收，因为方法里面局部变量 placeholder 的 Slot 没有被其它变量复用，即使离开了方法的作用域，它仍然是一个 GC Root，取消上面注释能正常回收或者添加参数 -verbose:gc -Xcomp，在经过 JIT 编译优化后，上面代码可以正常回收，无需添加赋值操作。</p>
+</li>
+<li><p>操作数栈的每一个元素可以是任意的 Java 数据类型。当一个方法刚刚开始执行的时候，这个方法的操作数栈是空的，在方法执行的过程中，会有各种字节码指令往操作数栈中写入和提取，也就是出站和入栈。通过 javap -c 命令可以查看 class 文件的反编译指令，可分析方法如果执行字节码指令。在程序编译完成生成 class 文件之后，可以确定局部变量表的大小，以及操作数栈的大小。</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>指令码</th>
+<th>反编译指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x94</td>
+<td>lcmp</td>
+<td>比较栈顶 long 类型数据的值大小，并将结果压入栈顶。</td>
+</tr>
+</tbody></table>
+<p>方法异常或者 return 会导致栈帧弹出。</p>
+<p>3.动态链接</p>
+<p>4.返回地址</p>
+<p>5.虚拟机栈溢出，如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出 StackOverflowError 异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavaVMStackSOF</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">stackLength</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">stackLeak</span><span class="params">()</span> &#123;</span><br><span class="line">        stackLength++;</span><br><span class="line">        stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">JavaVMStackSOF</span> <span class="variable">oom</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JavaVMStackSOF</span>();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            oom.stackLeak();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;stack length: &quot;</span> + oom.stackLength);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>VM 参数分别设置  -Xms256m -Xmx256m -Xmn128m -Xss256k 和 设置 -Xms256m -Xmx256m -Xmn128m -Xss512k，查看运行结果（stack length 变大），随着线程栈的大小越大，能够支持越多的方法调用，也即是能够存储更多的栈帧，栈帧越多越耗内存。</p>
+<table>
+<thead>
+<tr>
+<th>参数说明</th>
+<th>含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-Xms</td>
+<td>初始堆大小</td>
+<td>默认（MinHeapFreeRatio / -Xminf 参数可以调整）空余堆内存小于40%时，JVM 就会增大堆直到 -Xmx 的最大限制。</td>
+</tr>
+<tr>
+<td>-Xmx</td>
+<td>最大堆大小</td>
+<td>默认（MaxHeapFreeRatio 参数可以调整）空余堆内存大于 70% 时，JVM 会减少堆直到 -Xms的最小限制</td>
+</tr>
+<tr>
+<td>-Xmn</td>
+<td>年轻代大小</td>
+<td>Eden + 2 survivor space</td>
+</tr>
+<tr>
+<td>-Xss</td>
+<td>线程的堆栈大小</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>在 stackLeak 方法增加参数，栈帧中的本地变量表就会增加，对应的栈帧内存就越大，栈的深度反而变小。</p>
+<p>下面代码为创建线程导致内存溢出异常，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavaVMStackOOM</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">notStop</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">stackLeakByThread</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(JavaVMStackOOM::notStop);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">JavaVMStackOOM</span> <span class="variable">oom</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JavaVMStackOOM</span>();</span><br><span class="line">        oom.stackLeakByThread();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个异常是由于操作系统没有足够的资源来产生这个线程造成的，虚拟机提供了参数来控制 Java 堆（Xmx）和方法区（MaxPermSize）的内存最大值。程序计数器消耗内存非常小，如果不计算虚拟机本身耗费的内存，剩下的内存就由虚拟机栈和本地方法栈来瓜分，每个线程分配的栈容量越大，线程数量就越少，建立线程就很容易耗尽内存。考虑这种情况，</p>
+<ol>
+<li>可以重新设计系统减少线程数量</li>
+<li>减少最大堆和减少栈容量来换取更多的线程。</li>
+</ol>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
