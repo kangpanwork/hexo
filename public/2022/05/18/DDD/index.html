@@ -11,7 +11,7 @@
 
     <title>
         
-        自我介绍 - undefined
+        DDD - undefined
         
     </title>
 
@@ -124,15 +124,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        自我介绍
+        DDD
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2022-05-14 16:55:33</span></span>
+        <span class="attr">发布于：<span>2022-05-18 09:34:08</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#Other" title="Other">Other</a>
+        <a class="tag" href="/tags/#Design" title="Design">Design</a>
         <span>/</span>
         
         
@@ -142,55 +142,15 @@
 </span>
     </div>
     <div class="post-content ">
-        <p>面试官，您好。我叫康盼，毕业于东华理工大学，软件工程学位。至今有5年多的互联网 Java开发工作经验，主要从事有软件服务咨询、制造等业务领域，在项目中使用的技术框架主要有 Spring、SpringClound、Mybatis、Oracle、Mysql 最近在项目中参与过较多设计，在设计方面有一定的优势。先简单介绍这里，谢谢。</p>
-<ol>
-<li>面试的问题记录<ol>
-<li>高并发</li>
-<li>设计模式 单例</li>
-<li>内存泄露</li>
-<li>中间件 保证消息不丢失</li>
-<li>分布式事务</li>
-<li>主键外键设计</li>
-<li>SDD 拆分</li>
-<li>注册中心用的哪些，他们  的区别</li>
-<li>贫血模式 充血模式</li>
-<li>JUC</li>
-<li>Spring 单例属性安全</li>
-<li>集群，系统拆分</li>
-<li>DTO BO DO</li>
-<li>Spring 注解</li>
-<li>Mysql 的 innodb myisam 区别</li>
-<li>序列化</li>
-<li>CAP</li>
-<li>遇到最难解决的BUG，怎么解决的</li>
-<li>未来职业规划，职业发展</li>
-<li>你想要找一个什么样的工作</li>
-<li>多租户设计</li>
-<li>SAAS</li>
-<li>CSM 和 G1 </li>
-<li>高并发，多线程</li>
-<li>Ribbon 负载均衡</li>
-<li>Feign 框架</li>
-<li>AOP 代理底层</li>
-<li>Spring 自动装配</li>
-<li>消息中间件 kafaka</li>
-<li>Spring 事务隔离级别</li>
-<li>Spring Cloud 组件介绍</li>
-<li>服务注册与发现的原理</li>
-<li>AOP @Around 和 @beforeAfter 的区别</li>
-<li>MySQL 调用</li>
-<li>Spring 怎么导致事务失效</li>
-<li>Kafka数据可靠性</li>
-<li>Spring 怎么保证事务的</li>
-<li>MySQL #{} ${} 符号区别</li>
-<li>服务down机这种情况</li>
-<li>Euraka 保护机制</li>
-<li>线程加入队列怎么执行</li>
-<li>数据库针对不同用户显示不同字段怎么做</li>
-<li>用户请求慢了怎么排查</li>
-</ol>
-</li>
-</ol>
+        <p>以下是个人对 DDD 设计理论的理解，及工作中怎么实践。</p>
+<p>What? （什么是 DDD）</p>
+<p>DDD 领域驱动设计（Domain-Driven Design），是埃里克·埃文斯于 2004 年提出的一种软件设计方法和理念。主要思想是利用业务模型来指导业务与应用的设计和实现。</p>
+<p>Why？（为什么要这么做）</p>
+<p>我之前参与的工作项目都是基于业务建模，数据层提供基于模型的原子操作，有些 SQL 厉害的开发可能会将某些业务嵌入其中，但这样不易维护和识别。建模之后进行分层架构，业务层基于模型开发去组织业务，有些可能会直接操作数据层，有些可能需要调用其它业务代码进行编排去实现一个完整的业务场景，可能这个完整的业务场景又会被其它业务场景调用，但是只是需要其中某些代码逻辑，可能直接加 if else，更优雅的可能会利用设计模式。总之这种分层不是很友好，因为程序员需要将模型和业务进行衔接。</p>
+<p>How？（怎么做）</p>
+<p>针对复杂的业务场景，如何让开发更专注自己的业务模块，核心领域。我们先将数据层这块抽出来，因为数据层仅仅是数据，没有任何行为，也称之贫血模式。数据层有专门的团队进行维护，利用面向过程的方式，将数据耦合行为（充血模式），提供对应业务领域的接口，这些接口实现类不仅是数据的载体，还有很多颗粒度非常小的行为。（BO 层），这一层屏蔽了数据的CRUD操作，对外只是一个个行为。中间有一层将这些行为组装成一个个功能（Method 层）。而业务层就是调用这些功能来实现对应业务领域（Service 层）。</p>
+<p>这样做导致更偏向设计，怎么设计好行为，功能，因为这些是支撑业务的关键点，如果这些实现非常好，那么业务层可以更灵活的编排，开发就能更关注自己的业务。</p>
+<p>以上是我对 DDD 的理解及实践。</p>
 
         
         <br />
