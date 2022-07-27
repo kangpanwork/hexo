@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        绵绵星球工作代码记录 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> sometimes code， sometimes design </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Pan Kang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> sometimes code， sometimes design </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        绵绵星球工作代码记录
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-07-27 21:35:03</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Other" title="Other">Other</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <ul>
+<li><p>key过期事件订阅配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisCacheConfigure</span> <span class="keyword">extends</span> <span class="title class_">CachingConfigurerSupport</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * key过期事件订阅需要</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> redisConnectionFactory</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> RedisMessageListenerContainer&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    RedisMessageListenerContainer <span class="title function_">container</span><span class="params">(RedisConnectionFactory redisConnectionFactory)</span> &#123;</span><br><span class="line">        <span class="type">RedisMessageListenerContainer</span> <span class="variable">container</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RedisMessageListenerContainer</span>();</span><br><span class="line">        container.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        <span class="keyword">return</span> container;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j</span><br><span class="line">@Component</span><br><span class="line">public class RedisKeyExpirationListener extends KeyExpirationEventMessageListener &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private OrderApplication orderApplication;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private OrderService orderService;</span><br><span class="line"></span><br><span class="line">    public RedisKeyExpirationListener(RedisMessageListenerContainer listenerContainer) &#123;</span><br><span class="line">        super(listenerContainer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onMessage(Message message, byte[] pattern) &#123;</span><br><span class="line">        String channel = new String(message.getChannel(), StandardCharsets.UTF_8);</span><br><span class="line">        // 过期的key</span><br><span class="line">        String key = new String(message.getBody(), StandardCharsets.UTF_8);</span><br><span class="line">        // 判断是否是订单的主键</span><br><span class="line">        if (key.startsWith(BizConstant.ORDER_CODE_REDIS_KEY_PREFIX)) &#123;</span><br><span class="line">            OrderVo orderVo = orderService.detail(key);</span><br><span class="line">            if (!Objects.isNull(orderVo)) &#123;</span><br><span class="line">                // 取消订单</span><br><span class="line">                CancelOrderDto cancelOrderDto = new CancelOrderDto();</span><br><span class="line">                cancelOrderDto.setOrderId(key);</span><br><span class="line">                cancelOrderDto.setCancelReason(BizConstant.SYSTEM_CANCEL);</span><br><span class="line">                cancelOrderDto.setAddShoppingCard(BizConstant.N);</span><br><span class="line">                cancelOrderDto.setUserId(orderVo.getUserId());</span><br><span class="line">                orderApplication.cancelOrder(cancelOrderDto);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;redis key 过期：pattern=&#123;&#125;,channel=&#123;&#125;,key=&#123;&#125;&quot;, new String(pattern), channel, key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>mybaits plus 创建时间更新时间自动填充</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class TimeFill implements MetaObjectHandler &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 插入时的填充策略</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void insertFill(MetaObject metaObject) &#123;</span><br><span class="line">        this.setFieldValByName(&quot;createTime&quot;, new Date(), metaObject);</span><br><span class="line">        this.setFieldValByName(&quot;updateTime&quot;, new Date(), metaObject);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 更新时的填充策略</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void updateFill(MetaObject metaObject) &#123;</span><br><span class="line">        this.setFieldValByName(&quot;updateTime&quot;, new Date(), metaObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>自定义参数检验</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;TYPE, ANNOTATION_TYPE,PARAMETER&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Constraint(validatedBy = &#123;AttributeValidation.AttributeIdValidator.class&#125;)</span><br><span class="line">@Documented</span><br><span class="line">public @interface CheckAttributeIdExist &#123;</span><br><span class="line"></span><br><span class="line">    String message() default &quot;属性ID不存在！&quot;;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] groups() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? extends Payload&gt;[] payload() default &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>校验实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AttributeValidation</span>&lt;T <span class="keyword">extends</span> <span class="title class_">Annotation</span>&gt; <span class="keyword">implements</span> <span class="title class_">ConstraintValidator</span>&lt;T, AttributeEntity&gt; &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">protected</span> AttributeMapper attributeMapper;</span><br><span class="line"></span><br><span class="line">    Predicate&lt;AttributeEntity&gt; predicate = c -&gt; <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(AttributeEntity value, ConstraintValidatorContext context)</span> &#123;</span><br><span class="line">        <span class="type">return</span> <span class="variable">value</span> <span class="operator">=</span>= <span class="literal">null</span> || predicate.test(value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">AttributeIdValidator</span> <span class="keyword">extends</span> <span class="title class_">AttributeValidation</span>&lt;CheckAttributeIdExist&gt; &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initialize</span><span class="params">(CheckAttributeIdExist constraintAnnotation)</span> &#123;</span><br><span class="line">            predicate = c -&gt; attributeMapper.selectById(c.getId()) != <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">AttributeNoDuplicationValidator</span> <span class="keyword">extends</span> <span class="title class_">AttributeValidation</span>&lt;CheckAttributeNoDuplication&gt; &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initialize</span><span class="params">(CheckAttributeNoDuplication constraintAnnotation)</span> &#123;</span><br><span class="line">            predicate = c -&gt; attributeMapper.selectOne(Wrappers.&lt;AttributeEntity&gt;lambdaQuery().eq(AttributeEntity::getName, c.getName())) == <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>spring 事件监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Async</span><br><span class="line">  @TransactionalEventListener</span><br></pre></td></tr></table></figure></li>
+<li><p>redis 锁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">RedisLockRegistry</span><br><span class="line"></span><br><span class="line">        Lock lock = redisLockRegistry.obtain(&quot;APP:GOODS:ATTRIBUTE:&quot; + dto.getName());</span><br><span class="line">        if (lock.tryLock()) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                AttributeEntity entity = attributeTransfer.toModel(dto);</span><br><span class="line">                if (StringUtils.isEmpty(entity.getId())) &#123;</span><br><span class="line">                    attributeService.insert(entity);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    attributeService.modify(entity);</span><br><span class="line">                &#125;</span><br><span class="line">                return entity.getId();</span><br><span class="line">            &#125; finally &#123;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            throw new BaseException(BaseCode.NO_LOCK_ACQUIRED);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>基于注解的拦截参数注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Pointcut(&quot;@annotation(com.mmplanet.cloud.app.security.annotation.Authorization)&quot;)</span><br><span class="line">   public void pointCut() &#123;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   @Around(&quot;pointCut() &amp;&amp; @annotation(authorization)&quot;)</span><br><span class="line">   public Object around(ProceedingJoinPoint point, Authorization authorization) throws Throwable &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
