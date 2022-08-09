@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        怎么写好代码一 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> sometimes code， sometimes design </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Pan Kang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D"><span class="toc-text">命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%9F%8B%E7%82%B9"><span class="toc-text">数据埋点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%B4%E7%AA%97%E6%95%88%E5%BA%94"><span class="toc-text">破窗效应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%8C%E8%B4%A3%E5%8D%95%E4%B8%80%EF%BC%88SRP%EF%BC%89"><span class="toc-text">职责单一（SRP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%BE%E7%AE%80%E8%BE%85%E5%8A%A9%E4%BB%A3%E7%A0%81"><span class="toc-text">精简辅助代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E6%9C%AC%E8%B4%A8"><span class="toc-text">架构本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E4%B8%80%E8%87%B4%E6%80%A7-%EF%BC%88SLAP%EF%BC%89"><span class="toc-text">抽象层次一致性 （SLAP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="toc-text">函数式编程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99%EF%BC%88OCP%EF%BC%89"><span class="toc-text">开闭原则（OCP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99%EF%BC%88LSP%EF%BC%89"><span class="toc-text">里氏替换原则（LSP）</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> sometimes code， sometimes design </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        怎么写好代码一
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-08-09 21:41:25</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Other" title="Other">Other</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h3 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h3><ul>
+<li>类名遵循 SRP（单一职责原则）</li>
+<li>包名 限定范围（对象组合抽象、命名空间）</li>
+<li>模块名 参考：COLA 架构、CQRS 架构（以业务为核心，解耦外部依赖，分离业务复杂度和技术复杂度）</li>
+</ul>
+<p>命名工具</p>
+<ul>
+<li>OnlineSearch 插件</li>
+<li><a target="_blank" rel="noopener" href="https://unbug.github.io/codelf/">https://unbug.github.io/codelf/</a></li>
+</ul>
+<h3 id="数据埋点"><a href="#数据埋点" class="headerlink" title="数据埋点"></a>数据埋点</h3><p>业务数据化 数据业务化</p>
+<ol>
+<li>数据采集</li>
+<li>数据传输</li>
+<li>数据建模</li>
+<li>数据统计</li>
+<li>数据可视化</li>
+</ol>
+<h3 id="破窗效应"><a href="#破窗效应" class="headerlink" title="破窗效应"></a>破窗效应</h3><p>遵守规范，不打破第一扇窗，及时修复破窗。写代码需要工匠精神。</p>
+<h3 id="职责单一（SRP）"><a href="#职责单一（SRP）" class="headerlink" title="职责单一（SRP）"></a>职责单一（SRP）</h3><p>一个方法只做一件事情，高内聚，提高代码复用。</p>
+<h3 id="精简辅助代码"><a href="#精简辅助代码" class="headerlink" title="精简辅助代码"></a>精简辅助代码</h3><p>区分业务代码和辅助代码（判空，鉴权，缓存等），业务代码尽量减少辅助代码，使业务清晰。</p>
+<ul>
+<li>解耦</li>
+<li>服务降级</li>
+</ul>
+<h3 id="架构本质"><a href="#架构本质" class="headerlink" title="架构本质"></a>架构本质</h3><p>要素结构：代码核心组成要素，代码如何组织就是结构。结构是要素之间的相互关系。<br>应用架构就是处理模块、组件、包、类之间的关系，灵活组织代码，快速迭代。</p>
+<p>阿里云应用生器 <a target="_blank" rel="noopener" href="https://start.aliyun.com/bootstrap.html">https://start.aliyun.com/bootstrap.html</a></p>
+<h3 id="抽象层次一致性-（SLAP）"><a href="#抽象层次一致性-（SLAP）" class="headerlink" title="抽象层次一致性 （SLAP）"></a>抽象层次一致性 （SLAP）</h3><p>函数只显示处理业务主要步骤，具体的实现细节通过私有方法封装，并通过抽象一致性来保证，一个函数的抽象在同一个水平上，而不是高层抽象和实现细节混杂在一起。<br>eg:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">mackCoffee</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 1.倒入咖啡粉</span></span><br><span class="line">    pourCoffeePowder();</span><br><span class="line">    <span class="comment">// 2.加入沸水</span></span><br><span class="line">    pourWater();</span><br><span class="line">    <span class="comment">// 3.搅拌</span></span><br><span class="line">    stir();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果加入新需求，可以选择不同的咖啡粉，以及不同的风味。增加选择风味步骤，选择不同的咖啡粉，通过倒入咖啡粉的细节实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">mackCoffee</span><span class="params">(<span class="type">boolean</span> isMilkCoffee, <span class="type">boolean</span> isSweetTooth, CoffeeType type)</span> &#123;</span><br><span class="line">    <span class="comment">// 1.倒入咖啡粉（支持选择咖啡粉）</span></span><br><span class="line">    pourCoffeePowder(type);</span><br><span class="line">    <span class="comment">// 2.加入沸水</span></span><br><span class="line">    pourWater();</span><br><span class="line">    <span class="comment">// 3.选择口味</span></span><br><span class="line">    flavor(isMilkCoffee, isSweetTooth);</span><br><span class="line">    <span class="comment">// 4.搅拌</span></span><br><span class="line">    stir();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h3><p>冗余程度：类 &gt; 匿名类 &gt; Lamda（匿名函数） &gt; 方法引用</p>
+<h3 id="开闭原则（OCP）"><a href="#开闭原则（OCP）" class="headerlink" title="开闭原则（OCP）"></a>开闭原则（OCP）</h3><p>现有功能开发完成，如果有新的需求，那么尽量不要修改之前功能代码，保证之前代码能正常运行（关闭）。只对现有功能进行扩展（开放）。一般使用以下方法进行扩展：</p>
+<ol>
+<li>继承（封装不变的部分，通过接口继承实现开放）</li>
+<li>多态</li>
+<li>装饰者模式（包装不变的部分）</li>
+<li>策略模式</li>
+<li>适配模式</li>
+<li>观察者模式（通过灵活添加和删除扩展）</li>
+</ol>
+<h3 id="里氏替换原则（LSP）"><a href="#里氏替换原则（LSP）" class="headerlink" title="里氏替换原则（LSP）"></a>里氏替换原则（LSP）</h3><p>子类替换基类，代码还能正常工作。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
